@@ -33,7 +33,7 @@ client.on('message', (message) => {
   if(message.author.bot) return;
 
   if(message.content == '굿모닝') {
-    return message.reply('좋은아침이에요 기분좋은 하루돼세요');
+    return message.reply('좋은아침이에요 좋은하루돼세요');
   }
 
   if(message.content == 'embed') {
