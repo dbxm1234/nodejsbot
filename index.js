@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = process.argv.length == 2 ? process.env.token : "NzAwNjc4NzAwMDE3OTA5ODEy.XrMZCQ.3R2OvNzH7CkMU7kWECJAWLnpOE0";
+const token = process.argv.length == 2 ? process.env.token : "NzAwNjc4NzAwMDE3OTA5ODEy.XrQB2Q.YYs8mnyc1xydAK4vNB83ODRgBrU";
 const welcomeChannelName = "안녕하세요";
 const byeChannelName = "안녕히가세요";
 const welcomeChannelComment = "어서오세요.";
@@ -33,7 +33,7 @@ client.on('message', (message) => {
   if(message.author.bot) return;
 
   if(message.content == '굿모닝') {
-    return message.reply('좋은아침이에요 좋은하루돼세요');
+    return message.reply('좋은아침이에요 좋은하루돼세요:)');
   }
 
   if(message.content == 'embed') {
@@ -54,15 +54,14 @@ client.on('message', (message) => {
       .setFooter('나긋해가 만듬', img)
 
     message.channel.send(embed)
-  } else if(message.content == '!help') {
+  } else if(message.content == 'help') {
     let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
     let commandList = [
-      {name: '!help', desc: 'help'},
       {name: 'ping', desc: '현재 핑 상태'},
       {name: 'embed', desc: 'embed 예제1'},
+      {name: 'embed2', desc: 'embed 예제2 (help)'},
       {name: '!전체공지', desc: 'dm으로 전체 공지 보내기'},
       {name: '!청소', desc: '텍스트 지움'},
-      {name: '!초대', desc: '초대 코드 표기'},
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
@@ -78,11 +77,6 @@ client.on('message', (message) => {
     embed.addField('Commands: ', commandStr);
 
     message.channel.send(embed)
-  } else if(message.content == '!초대코드') {
-    message.guild.channels.get(message.channel.id).createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
-      .then(invite => {
-        message.channel.send(invite.url)
-      });
   }
 
   if(message.content.startsWith('!전체공지')) {
