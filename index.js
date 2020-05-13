@@ -43,8 +43,8 @@ client.on('message', (message) => {
     let img = 'https://cdn.discordapp.com/attachments/707574834804031548/709973140926758943/Screenshot_20200513-034719_Logo_Maker_Pro.jpg';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#186de6')
-    embed.setAuthor('server info of TeamICG BOT', img)
-    embed.setFooter(`TeamICG Infinite Convoy Group`)
+    embed.setAuthor('server info of Kong BOT', img)
+    embed.setFooter(`Kong bot`)
     embed.addBlankField()
     embed.addField('RAM usage',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
     embed.addField('running time', `${duration}`, true);
@@ -69,10 +69,10 @@ client.on('message', (message) => {
     message.channel.send(embed);
   }
 
-  if(message.content == 'embed') {
+  if(message.content == '!내정보') {
     let img = 'https://cdn.discordapp.com/attachments/707574834804031548/709973140926758943/Screenshot_20200513-034719_Logo_Maker_Pro.jpg';
-    let embed = new Discord.RichEmbed()
-      .setTitle('Kong정보')
+    let embed = new MessageEmbed()
+      .setTitle('내정보.')
       .setURL('http://www.naver.com')
       .setAuthor('Kong', img, 'http://www.naver.com')
       .setThumbnail(img)
