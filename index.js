@@ -71,7 +71,7 @@ client.on('message', (message) => {
 
   if(message.content == '!내정보') {
     let img = 'https://cdn.discordapp.com/attachments/707574834804031548/709973140926758943/Screenshot_20200513-034719_Logo_Maker_Pro.jpg';
-    let embed = new MessageEmbed()
+    let embed = new Discord. MessageEmbed()
       .setTitle('내정보.')
       .setURL('http://www.naver.com')
       .setAuthor('Kong', img, 'http://www.naver.com')
