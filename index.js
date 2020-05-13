@@ -71,7 +71,7 @@ client.on('message', (message) => {
 
   if(message.content == '!내정보') {
     let img = 'https://cdn.discordapp.com/attachments/707574834804031548/709973140926758943/Screenshot_20200513-034719_Logo_Maker_Pro.jpg';
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.RichEmbed()
       .setTitle('내정보.')
       .setURL('http://www.naver.com')
       .setAuthor('Kong', img, 'http://www.naver.com')
@@ -145,7 +145,7 @@ client.on('message', (message) => {
       let embed = new Discord.RichEmbed()
         .setAuthor('공지 of TeamICG BOT')
         .setColor('#186de6')
-        .setFooter(`TeamICG Infinite Convoy Group`)
+        .setFooter('TeamICG Infinite Convoy Group')
         .setTimestamp()
   
       embed.addField('공지: ', contents);
