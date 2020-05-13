@@ -3,9 +3,9 @@ const client = new Discord.Client();
 const token = process.argv.length == 2 ? process.env.token : "";
 const moment = require("moment");
 require("moment-duration-format");
-const welcomeChannelName = "안녕하세요 TeamICG 디스코드방입니다";
+const welcomeChannelName = "안녕하세요 디스코드방입니다";
 const byeChannelName = "안녕히가세요";
-const welcomeChannelComment = "어서오세요 TeamICG 디스코드방입니다.";
+const welcomeChannelComment = "어서오세요 디스코드방입니다.";
 const byeChannelComment = "안녕히가세요 조심히 살펴가세요.";
 
 client.on('ready', () => {
@@ -20,7 +20,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "ICG Driver & Member"));
+  member.addRole(guild.roles.find(role => role.name == "ICG Member"));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -34,8 +34,8 @@ client.on("guildMemberRemove", (member) => {
 client.on('message', (message) => {
   if(message.author.bot) return;
 
-  if(message.content == '!때빙정보') {
-    return message.reply('`오늘 밤 9시30분에 때빙이 있을예정입니다!`');
+  if(message.content == '굿모닝') {
+    return message.reply('좋은아침이다 새끼야');
   }
 
   if(message.content == '!봇상태') {
@@ -77,11 +77,11 @@ client.on('message', (message) => {
       .setAuthor('Kong', img, 'http://www.naver.com')
       .setThumbnail(img)
       .addBlankField()
-      .addField('Inline field title', 'Some value here')
-      .addField('Inline field title', 'Some value here', true)
-      .addField('Inline field title', 'Some value here', true)
-      .addField('Inline field title', 'Some value here', true)
-      .addField('Inline field title', 'Some value here1\nSome value here2\nSome value here3\n')
+      .addField('역할', 'some value here')
+      .addField('봇 여부', 'Some value here', true)
+      .addField('상태', 'Some value here', true)
+      .addField('디스코드가입날짜', 'Some value here', true)
+      .addField('서버가입날짜', 'Some value here1\nSome value here2\nSome value here3\n')
       .addBlankField()
       .setTimestamp()
       .setFooter('Kong가 만듬', img)
@@ -101,9 +101,9 @@ client.on('message', (message) => {
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
-      .setAuthor('Help of TeamICG Bot', helpImg)
+      .setAuthor('Help of KonG Bot', helpImg)
       .setColor('#186de6')
-      .setFooter('TeamICG Infinite Convoy Group')
+      .setFooter('Kong bot')
       .setTimestamp()
     
     commandList.forEach(x => {
@@ -143,9 +143,9 @@ client.on('message', (message) => {
     if(message.member != null) { // 채널에서 공지 쓸 때
       let contents = message.content.slice('!전체공지2'.length);
       let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of TeamICG BOT')
+        .setAuthor('공지 of Kong BOT')
         .setColor('#186de6')
-        .setFooter('TeamICG Infinite Convoy Group')
+        .setFooter('Kong bot')
         .setTimestamp()
   
       embed.addField('공지: ', contents);
