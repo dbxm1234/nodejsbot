@@ -3,9 +3,9 @@ const client = new Discord.Client();
 const token = process.argv.length == 2 ? process.env.token : "";
 const moment = require("moment");
 require("moment-duration-format");
-const welcomeChannelName = "안녕하세요 디스코드방입니다";
+const welcomeChannelName = "안녕하세요 TeamICG 디스코드방입니다";
 const byeChannelName = "안녕히가세요";
-const welcomeChannelComment = "어서오세요 디스코드방입니다.";
+const welcomeChannelComment = "어서오세요 TeamICG 디스코드방입니다.";
 const byeChannelComment = "안녕히가세요 조심히 살펴가세요.";
 
 client.on('ready', () => {
@@ -37,10 +37,9 @@ client.on('message', (message) => {
   if(message.content == '굿모닝') {
     return message.reply('좋은아침이다 새끼야');
   }
-
   if(message.content == '!봇상태') {
     let embed = new Discord.RichEmbed()
-    let img = 'https://cdn.discordapp.com/attachments/707574834804031548/709973140926758943/Screenshot_20200513-034719_Logo_Maker_Pro.jpg';
+    let img = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#186de6')
     embed.setAuthor('server info of Kong BOT', img)
@@ -70,7 +69,7 @@ client.on('message', (message) => {
   }
 
   if(message.content == '!내정보') {
-    let img = 'https://cdn.discordapp.com/attachments/707574834804031548/709973140926758943/Screenshot_20200513-034719_Logo_Maker_Pro.jpg';
+    let img = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
     let embed = new Discord.RichEmbed()
       .setTitle('내정보.')
       .setURL('http://www.naver.com')
@@ -88,7 +87,7 @@ client.on('message', (message) => {
 
     message.channel.send(embed)
   } else if(message.content == '!help') {
-    let helpImg = 'https://cdn.discordapp.com/attachments/707574834804031548/709973140926758943/Screenshot_20200513-034719_Logo_Maker_Pro.jpg';
+    let helpImg = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
     let commandList = [
       {name: '!help', desc: 'help'},
       {name: 'ping', desc: '현재 핑 상태'},
