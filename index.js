@@ -45,10 +45,10 @@ client.on('message', (message) => {
     embed.setAuthor('server info of Kong BOT', img)
     embed.setFooter(`Kong bot`)
     embed.addBlankField()
-    embed.addField('RAM usage',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
-    embed.addField('running time', `${duration}`, true);
-    embed.addField('user',         `${client.users.size.toLocaleString()}`, true);
-    embed.addField('server',       `${client.guilds.size.toLocaleString()}`, true);
+    embed.addField('RAM 사용량',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
+    embed.addField('가동시간', `${duration}`, true);
+    embed.addField('유저',         `${client.users.size.toLocaleString()}`, true);
+    embed.addField('서버',       `${client.guilds.size.toLocaleString()}`, true);
     // embed.addField('channel',      `${client.channels.size.toLocaleString()}`, true);
     embed.addField('Discord.js',   `v${Discord.version}`, true);
     embed.addField('Node',         `${process.version}`, true);
@@ -72,15 +72,15 @@ client.on('message', (message) => {
     let img = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
     let embed = new Discord.RichEmbed()
       .setTitle('내정보.')
-      .setURL('http://www.naver.com')
-      .setAuthor('Kong', img, 'http://www.naver.com')
-      .setThumbnail(img)
+      il(img)
       .addBlankField()
       .addField('역할', 'some value here')
       .addField('봇 여부', 'Some value here', true)
       .addField('상태', 'Some value here', true)
       .addField('디스코드가입날짜', 'Some value here', true)
-      .addField('서버가입날짜', 'Some value here1\nSome value here2\nSome value here3\n')
+      .addField('서버가입날짜', 'Some value he.setURL')
+      .setAuthor('Kong', img, 'http://www.naver.com')
+      .setThum
       .addBlankField()
       .setTimestamp()
       .setFooter('Kong가 만듬', img)
