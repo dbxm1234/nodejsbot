@@ -143,7 +143,7 @@ client.on('message', (message) => {
       let contents = message.content.slice('!전체공지2'.length);
       let embed = new Discord.RichEmbed()
         .setAuthor('공지 of Kong BOT')
-        .setColor('#186de6')
+        .setColor('#e61818')
         .setFooter('Kong bot')
         .setTimestamp()
   
