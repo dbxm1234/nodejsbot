@@ -20,7 +20,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "ICG Member"));
+  member.addRole(guild.roles.find(role => role.name == "ICG Driver & Member "));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -45,9 +45,9 @@ client.on('message', (message) => {
     embed.setAuthor('server info of Kong BOT', img)
     embed.setFooter(`Kong bot`)
     embed.addBlankField()
-    embed.addField('RAM 사용량',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
-    embed.addField('가동시간', `${duration}`, true);
-    embed.addField('유저',         `${client.users.size.toLocaleString()}`, true);
+    embed.addField('RAM사용량',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
+    embed.addField('봇가동시간', `${duration}`, true);
+    embed.addField('유저수',         `${client.users.size.toLocaleString()}`, true);
     embed.addField('서버',       `${client.guilds.size.toLocaleString()}`, true);
     // embed.addField('channel',      `${client.channels.size.toLocaleString()}`, true);
     embed.addField('Discord.js',   `v${Discord.version}`, true);
