@@ -41,7 +41,7 @@ client.on('message', (message) => {
     let embed = new Discord.RichEmbed()
     let img = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
-    embed.setColor('#186de6')
+    embed.setColor('#18dfe6')
     embed.setAuthor('server info of Kong BOT', img)
     embed.setFooter(`Kong bot`)
     embed.addBlankField()
@@ -101,7 +101,7 @@ client.on('message', (message) => {
     let commandStr = '';
     let embed = new Discord.RichEmbed()
       .setAuthor('Help of KonG Bot', helpImg)
-      .setColor('#186de6')
+      .setColor('#e618c7')
       .setFooter('Kong bot')
       .setTimestamp()
     
