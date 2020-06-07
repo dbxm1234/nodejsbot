@@ -1,11 +1,10 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
+Discord = require('discord.js');
+const byeChannelName = "안녕히가세요";t
 const token = process.argv.length == 2 ? process.env.token : "";
 const moment = require("moment");
 require("moment-duration-format");
-const welcomeChannelName = "안녕하세요 TeamICG 디스코드방입니다";
-const byeChannelName = "안녕히가세요";
-const welcomeChannelComment = "어서오세요 TeamICG 디스코드방입니다.";
+const welcomeChannelName = "안녕하세요 TeamCAT 디스코드방입니다.";
+const welcomeChannelComment = "어서오세요 TeamCAT 디스코드방입니다.";
 const byeChannelComment = "안녕히가세요 조심히 살펴가세요.";
 
 client.on('ready', () => {
@@ -20,7 +19,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "ICG Driver & Member "));
+  member.addRole(guild.roles.find(role => role.name == "CAT Driver & Member "));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -39,7 +38,6 @@ client.on('message', (message) => {
   }
   if(message.content == '!봇상태') {
     let embed = new Discord.RichEmbed()
-    let img = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#18dfe6')
     embed.setAuthor('server info of Kong BOT', img)
@@ -69,7 +67,7 @@ client.on('message', (message) => {
   }
 
   if(message.content == '!내정보') {
-    let img = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
+    let img = 'https://cdn.discordapp.com/attachments/714146557158621234/719240286718525470/3cbb92c2ecb2d8c5.PNG';
     let embed = new Discord.RichEmbed()
       .setTitle('내정보.')
       il(img)
@@ -87,7 +85,7 @@ client.on('message', (message) => {
 
     message.channel.send(embed)
   } else if(message.content == '!help') {
-    let helpImg = 'https://cdn.discordapp.com/attachments/707574834804031548/711294851563651072/Screenshot_20200515-220834_Glitch_Name_Art.jpg';
+    let helpImg = 'https://cdn.discordapp.com/attachments/714146557158621234/719240286718525470/3cbb92c2ecb2d8c5.PNG';
     let commandList = [
       {name: '!help', desc: 'help'},
       {name: 'ping', desc: '현재 핑 상태'},
