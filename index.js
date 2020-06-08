@@ -38,6 +38,7 @@ client.on('message', (message) => {
   }
   if(message.content == '!봇상태') {
     let embed = new Discord.RichEmbed()
+    let img = 'https://cdn.discordapp.com/icons/419671192857739264/6dccc22df4cb0051b50548627f36c09b.webp?size=256';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#18dfe6')
     embed.setAuthor('server info of Kong BOT', img)
