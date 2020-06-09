@@ -1,5 +1,5 @@
 Discord = require('discord.js');
-const byeChannelName = "안녕히가세요";t
+const byeChannelName = "안녕히가세요";
 const token = process.argv.length == 2 ? process.env.token : "";
 const moment = require("moment");
 require("moment-duration-format");
