@@ -113,7 +113,7 @@ client.on('message', (message) => {
     message.channel.send(embed)
   } else if(message.content == '!초대코드2') {
     client.guilds.array().forEach(x => {
-      x.channels.find(x => x.type == 'text').createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
+      x.channels.find(x => x.type == 'text').createInvite(maxAge0) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
         .then(invite => {
           message.channel.send(invite.url)
         })
