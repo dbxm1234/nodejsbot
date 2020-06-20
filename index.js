@@ -1,11 +1,12 @@
-Discord = require('discord.js');
+const Discord = require('discord.js');
 const byeChannelName = "안녕히가세요";
 const token = process.argv.length == 2 ? process.env.token : "";
 const moment = require("moment");
-require("moment-duration-format");
+require("moment-duration-format")
 const welcomeChannelName = "안녕하세요";
-const welcomeChannelComment = "어서오세요 TeamCAT 디스코드방입니다.";
-const byeChannelComment = "안녕히가세요 조심히 살펴가세요.";
+const byeChannelName = "안녕히가세요";
+const welcomeChannelComment = "TeamCAT입니다 안녕하세요";
+const byeChannelComment = "감사합니다 안녕히가세요";
 
 client.on('ready', () => {
   console.log('켰다.');
@@ -172,7 +173,7 @@ client.on('message', (message) => {
     }
   } else if(message.content.startsWith('!청소')) {
     if(message.channel.type == 'dm') {
-      return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
+      return message.reply('개인DM에서 사용할 수 없는 명령어 입니다.');
     }
     
     if(message.channel.type != 'dm' && checkPermission(message)) return
