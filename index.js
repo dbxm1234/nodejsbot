@@ -35,24 +35,24 @@ client.on('message', (message) => {
   if(message.author.bot) return;
 
   if(message.content == '굿모닝') {
-    return message.reply('좋은아침이다 새끼야');
+    return message.reply('좋은아침이에요 좋은하루돼세요');
   }
-  if(message.content == '!봇상태') {
+  if(message.content == '!봇정보') {
     let embed = new Discord.RichEmbed()
     let img = 'https://cdn.discordapp.com/icons/419671192857739264/6dccc22df4cb0051b50548627f36c09b.webp?size=256';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#18dfe6')
-    embed.setAuthor('server info of Kong BOT', img)
-    embed.setFooter(`Kong bot`)
+    embed.setAuthor('server info of CAT BOT', img)
+    embed.setFooter(`CAT bot`)
     embed.addBlankField()
     embed.addField('RAM사용량',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
     embed.addField('봇가동시간', `${duration}`, true);
-    embed.addField('유저수',         `${client.users.size.toLocaleString()}`, true);
+    embed.addField('총유저수',         `${client.users.size.toLocaleString()}`, true);
     embed.addField('서버목록',       `${client.guilds.size.toLocaleString()}`, true);
     // embed.addField('channel',      `${client.channels.size.toLocaleString()}`, true);
     embed.addField('Discord.js',   `v${Discord.version}`, true);
     embed.addField('Node',         `${process.version}`, true);
-    
+    w
     let arr = client.guilds.array();
     let list = '';
     list = `\`\`\`css\n`;
@@ -100,9 +100,9 @@ client.on('message', (message) => {
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
-      .setAuthor('Help of KonG Bot', helpImg)
+      .setAuthor('Help of CAT Bot', helpImg)
       .setColor('#e618c7')
-      .setFooter('Kong bot')
+      .setFooter('CAT bot')
       .setTimestamp()
     
     commandList.forEach(x => {
@@ -142,9 +142,9 @@ client.on('message', (message) => {
     if(message.member != null) { // 채널에서 공지 쓸 때
       let contents = message.content.slice('!전체공지2'.length);
       let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of Kong BOT')
+        .setAuthor('공지 of CAT BOT')
         .setColor('#e61818')
-        .setFooter('Kong bot')
+        .setFooter('CAT bot')
         .setTimestamp()
   
       embed.addField('공지: ', contents);
