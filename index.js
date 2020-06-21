@@ -10,7 +10,7 @@ const byeChannelComment = "감사합니다 안녕히가세요";
 
 client.on('ready', () => {
   console.log('켰다.');
-  client.user.setPresence({ game: { name: '!help를 쳐보세요.' }, status: 'online' })
+  client.user.setPresence({ game: { name: '궁금한사항은!help.' }, status: 'online' })
 });
 
 client.on("guildMemberAdd", (member) => {
@@ -39,15 +39,15 @@ client.on('message', (message) => {
   }
   if(message.content == '!봇정보') {
     let embed = new Discord.RichEmbed()
-    let img = 'https://cdn.discordapp.com/icons/419671192857739264/6dccc22df4cb0051b50548627f36c09b.webp?size=256';
+    let img = 'https://cdn.discordapp.com/attachments/696366994890424331/724320662809870355/unknown.png';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#18dfe6')
-    embed.setAuthor('server info of CAT BOT', img)
+    embed.setAuthor('Server info of CAT BOT', img)
     embed.setFooter(`CAT bot`)
     embed.addBlankField()
     embed.addField('RAM사용량',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
     embed.addField('봇가동시간', `${duration}`, true);
-    embed.addField('총유저수',         `${client.users.size.toLocaleString()}`, true);
+    embed.addField('서버유저수',         `${client.users.size.toLocaleString()}`, true);
     embed.addField('서버목록',       `${client.guilds.size.toLocaleString()}`, true);
     // embed.addField('channel',      `${client.channels.size.toLocaleString()}`, true);
     embed.addField('Discord.js',   `v${Discord.version}`, true);
@@ -69,7 +69,7 @@ client.on('message', (message) => {
   }
 
   if(message.content == '!내정보') {
-    let img = 'https://cdn.discordapp.com/attachments/714146557158621234/719240286718525470/3cbb92c2ecb2d8c5.PNG';
+    let img = 'https://cdn.discordapp.com/attachments/696366994890424331/724320662809870355/unknown.png';
     let embed = new Discord.RichEmbed()
       .setTitle('내정보.')
       il(img)
@@ -87,14 +87,14 @@ client.on('message', (message) => {
 
     message.channel.send(embed)
   } else if(message.content == '!help') {
-    let helpImg = 'https://cdn.discordapp.com/attachments/714146557158621234/719240286718525470/3cbb92c2ecb2d8c5.PNG';
+    let helpImg = 'https://cdn.discordapp.com/attachments/696366994890424331/724320662809870355/unknown.png';
     let commandList = [
       {name: '!help', desc: 'help'},
       {name: 'ping', desc: '현재 핑 상태'},
       {name: 'embed', desc: 'embed 예제1'},
-      {name: '!전체공지', desc: 'dm으로 전체 공지 보내기'},
-      {name: '!전체공지2', desc: 'dm으로 전체 embed 형식으로 공지 보내기'},
-      {name: '!청소', desc: '텍스트 지움'},
+      {name: '!관리자공지', desc: 'DM으로 전체 공지 보내기'},
+      {name: '!관리자공지2', desc: 'DM으로 전체 embed 형식으로 공지 보내기'},
+      {name: '!청소', desc: '메세지 삭제'},
       {name: '!초대코드', desc: '해당 채널의 초대 코드 표기'},
       {name: '!초대코드2', desc: '봇이 들어가있는 모든 채널의 초대 코드 표기'},
     ];
@@ -126,7 +126,7 @@ client.on('message', (message) => {
     });
   } else if(message.content == '!초대코드') {
     if(message.channel.type == 'dm') {
-      return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
+      return message.reply('DM에서 사용할 수 없습니다.');
     }
     message.guild.channels.get(message.channel.id).createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
       .then(invite => {
@@ -134,13 +134,13 @@ client.on('message', (message) => {
       })
       .catch((err) => {
         if(err.code == 50013) {
-          message.channel.send('**'+message.guild.channels.get(message.channel.id).guild.name+'** 채널 권한이 없어 초대코드 발행 실패')
+          message.channel.send('**'+message.guild.channels.get(message.channel.id).guild.name+'** 권한이 없어 초대코드 발행 실패')
         }
       })
-  } else if(message.content.startsWith('!전체공지2')) {
+  } else if(message.content.startsWith('!관리자공지2')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!전체공지2'.length);
+      let contents = message.content.slice('!관리자공지2'.length);
       let embed = new Discord.RichEmbed()
         .setAuthor('공지 of CAT BOT')
         .setColor('#e61818')
@@ -158,10 +158,10 @@ client.on('message', (message) => {
     } else {
       return message.reply('채널에서 실행해주세요.');
     }
-  } else if(message.content.startsWith('!전체공지')) {
+  } else if(message.content.startsWith('!관리자공지')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!전체공지'.length);
+      let contents = message.content.slice('!관리자공지'.length);
       message.member.guild.members.array().forEach(x => {
         if(x.user.bot) return;
         x.user.send(`<@${message.author.id}> ${contents}`);
@@ -205,7 +205,7 @@ client.on('message', (message) => {
     } else {
       message.channel.bulkDelete(parseInt(clearLine)+1)
         .then(() => {
-          AutoMsgDelete(message, `<@${message.author.id}> ` + parseInt(clearLine) + "개의 메시지를 삭제했습니다. (이 메세지는 잠시 후에 사라집니다.)");
+          AutoMsgDelete(message, `<@${message.author.id}> ` + parseInt(clearLine) + "개의 메시지를 삭제했습니다. (이 메세지는 잠시 후에 자동으로 사라집니다.)");
         })
         .catch(console.error)
     }
@@ -214,7 +214,7 @@ client.on('message', (message) => {
 
 function checkPermission(message) {
   if(!message.member.hasPermission("MANAGE_MESSAGES")) {
-    message.channel.send(`<@${message.author.id}> ` + "명령어를 수행할 관리자 권한을 소지하고 있지않습니다.")
+    message.channel.send(`<@${message.author.id}> ` + "메세지청소를 수행할 관리자 권한을 소지하고 있지않습니다.")
     return true;
   } else {
     return false;
