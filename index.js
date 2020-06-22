@@ -97,6 +97,7 @@ client.on('message', (message) => {
       {name: '!청소', desc: '메세지 삭제'},
       {name: '!초대코드', desc: '해당 채널의 초대 코드 표기'},
       {name: '!초대코드2', desc: '봇이 들어가있는 모든 채널의 초대 코드 표기'},
+      {name: '!봇정보', desc: '봇 가동시간 메모리 사용량 표기'},
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
