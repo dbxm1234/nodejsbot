@@ -103,7 +103,7 @@ client.on('message', (message) => {
     let embed = new Discord.RichEmbed()
       .setAuthor('Made By 후리스', helpImg)
       .setColor('#e618c7')
-      .setFooter('창초 bot')
+      .setFooter('창초 봇')
       .setTimestamp()
     
     commandList.forEach(x => {
@@ -143,9 +143,9 @@ client.on('message', (message) => {
     if(message.member != null) { // 채널에서 공지 쓸 때
       let contents = message.content.slice('!관리자공지2'.length);
       let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of CAT BOT')
+        .setAuthor('공지 of 창초 BOT')
         .setColor('#e61818')
-        .setFooter('CAT bot')
+        .setFooter('창초 bot')
         .setTimestamp()
   
       embed.addField('공지: ', contents);
