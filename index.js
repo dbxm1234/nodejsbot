@@ -5,7 +5,7 @@ const moment = require("moment");
 require("moment-duration-format")
 const welcomeChannelName = "안녕하세요";
 const byeChannelName = "안녕히가세요";
-const welcomeChannelComment = "TeamCAT입니다 안녕하세요";
+const welcomeChannelComment = "창초서버입니다 안녕하세요";
 const byeChannelComment = "감사합니다 안녕히가세요";
 
 client.on('ready', () => {
@@ -20,7 +20,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "CAT Driver & Member "));
+  member.addRole(guild.roles.find(role => role.name == "👨창초시민👨"));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -42,8 +42,8 @@ client.on('message', (message) => {
     let img = 'https://cdn.discordapp.com/attachments/696366994890424331/724320662809870355/unknown.png';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#18dfe6')
-    embed.setAuthor('Server info of CAT BOT', img)
-    embed.setFooter(`CAT bot`)
+    embed.setAuthor('Server info of 창초 봇', img)
+    embed.setFooter(`창초 bot`)
     embed.addBlankField()
     embed.addField('RAM사용량',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
     embed.addField('봇가동시간', `${duration}`, true);
@@ -79,11 +79,11 @@ client.on('message', (message) => {
       .addField('상태', 'Some value here', true)
       .addField('디스코드가입날짜', 'Some value here', true)
       .addField('서버가입날짜', 'Some value he.setURL')
-      .setAuthor('Kong', img, 'http://www.naver.com')
+      .setAuthor('후리스', img, 'http://www.naver.com')
       .setThum
       .addBlankField()
       .setTimestamp()
-      .setFooter('Kong가 만듬', img)
+      .setFooter('Made By 후리스', img)
 
     message.channel.send(embed)
   } else if(message.content == '!help') {
@@ -92,18 +92,18 @@ client.on('message', (message) => {
       {name: '!help', desc: 'help'},
       {name: 'ping', desc: '현재 핑 상태'},
       {name: 'embed', desc: 'embed 예제1'},
-      {name: '!관리자공지', desc: 'DM으로 전체 공지 보내기'},
-      {name: '!관리자공지2', desc: 'DM으로 전체 embed 형식으로 공지 보내기'},
-      {name: '!청소', desc: '메세지 삭제'},
+      {name: '!관리자공지', desc: 'DM으로 전체 공지 보내기(관리자권한없을시 사용불가능'},
+      {name: '!관리자공지2', desc: 'DM으로 전체 embed 형식으로 공지 보내기(관리자권한없을시사용불가능'},
+      {name: '!청소', desc: '메세지 삭제(관리자권한없을시 사용불가능'},
       {name: '!초대코드', desc: '해당 채널의 초대 코드 표기'},
       {name: '!초대코드2', desc: '봇이 들어가있는 모든 채널의 초대 코드 표기'},
       {name: '!봇정보', desc: '봇 가동시간 메모리 사용량 표기'},
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
-      .setAuthor('Help of CAT Bot', helpImg)
+      .setAuthor('Made By 후리스', helpImg)
       .setColor('#e618c7')
-      .setFooter('CAT bot')
+      .setFooter('창초 bot')
       .setTimestamp()
     
     commandList.forEach(x => {
