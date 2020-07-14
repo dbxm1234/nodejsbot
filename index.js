@@ -9,6 +9,7 @@ const welcomeChannelName = "안녕하세요";
 const byeChannelName = "안녕히가세요";
 const welcomeChannelComment = "어서오세요.";
 const byeChannelComment = "안녕히가세요.";
+const adminUserId = 508593823547523072;
 
 client.on('ready', () => {
   console.log('켰다.');
@@ -16,15 +17,15 @@ client.on('ready', () => {
 
   let state_list = [
     '!help를 쳐보세요.',
-    '메렁메렁',
-    '에베베베베',
+    '청초서버에오신걸환영합니다',
+    '즐거운RP돼세요',
   ]
   let state_list_index = 1;
   let change_delay = 3000; // 이건 초입니당. 1000이 1초입니당.
 
   function changeState() {
     setTimeout(() => {
-      console.log( '상태 변경 -> ', state_list[state_list_index] );
+      // console.log( '상태 변경 -> ', state_list[state_list_index] );
       client.user.setPresence({ game: { name: state_list[state_list_index] }, status: 'online' })
       state_list_index += 1;
       if(state_list_index >= state_list.length) {
@@ -34,7 +35,7 @@ client.on('ready', () => {
     }, change_delay);
   }
 
-  changeState();
+  // changeState();
 });
 
 client.on("guildMemberAdd", (member) => {
@@ -44,7 +45,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "게스트"));
+  member.addRole(guild.roles.find(role => role.name == "👨청초시민👨"));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -63,22 +64,58 @@ client.on('message', (message) => {
   MessageSave(message)
   if(message.author.bot) return;
 
+  if(message.channel.type == 'dm') {
+    if(message.author.id == adminUserId) return;
+
+    /* not use embed */
+    let msg = message.author+'이(가) 메세지를 보냈습니다.\n'+message.content;
+    client.users.find(x => x.id == adminUserId).send(msg)
+
+    // /* use embed */
+    // let embed = new Discord.RichEmbed()
+    // let img = message.author.avatar ? `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.webp?size=256` : undefined;
+    // let user = message.author.username+'#'+message.author.discriminator
+    // let msg = message.content;
+    // embed.setColor('#186de6')
+    // embed.setAuthor(user+'이(가) 고객센터 메세지를 보냈습니다.', img)
+    // embed.setFooter(`후리스 BOT `)
+    // embed.addField('메세지 내용', msg, true);
+    // embed.setTimestamp()
+    // client.users.find(x => x.id == adminUserId).send(embed);
+  }
+
+  if(message.content.startsWith('!역할추가')) {
+    if(message.channel.type == 'dm') {
+      return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
+    }
+    if(message.channel.type != 'dm' && checkPermission(message)) return
+
+    if(message.content.split('<@').length == 3) {
+      if(message.content.split(' ').length != 3) return;
+
+      var userId = message.content.split(' ')[1].match(/[\u3131-\uD79D^a-zA-Z^0-9]/ugi).join('')
+      var role = message.content.split(' ')[2].match(/[\u3131-\uD79D^a-zA-Z^0-9]/ugi).join('')
+
+      message.member.guild.members.find(x => x.id == userId).addRole(role);
+    }
+  }
+
   if(message.content == 'ping') {
     return message.reply('pong');
   }
 
-  if(message.content == '!si') {
+  if(message.content == '!봇정보') {
     let embed = new Discord.RichEmbed()
     let img = 'https://cdn.discordapp.com/icons/419671192857739264/6dccc22df4cb0051b50548627f36c09b.webp?size=256';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#186de6')
-    embed.setAuthor('server info of 콜라곰 BOT', img)
-    embed.setFooter(`콜라곰 BOT ❤️`)
+    embed.setAuthor('server info of 청초 BOT', img)
+    embed.setFooter(`후리스 BOT ❤️`)
     embed.addBlankField()
-    embed.addField('RAM usage',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
-    embed.addField('running time', `${duration}`, true);
-    embed.addField('user',         `${client.users.size.toLocaleString()}`, true);
-    embed.addField('server',       `${client.guilds.size.toLocaleString()}`, true);
+    embed.addField('RAM 사용량',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
+    embed.addField('가동시간', `${duration}`, true);
+    embed.addField('유저',         `${client.users.size.toLocaleString()}`, true);
+    embed.addField('서버',       `${client.guilds.size.toLocaleString()}`, true);
     // embed.addField('channel',      `${client.channels.size.toLocaleString()}`, true);
     embed.addField('Discord.js',   `v${Discord.version}`, true);
     embed.addField('Node',         `${process.version}`, true);
@@ -98,12 +135,12 @@ client.on('message', (message) => {
     message.channel.send(embed);
   }
 
-  if(message.content == 'embed') {
-    let img = 'https://cdn.discordapp.com/icons/419671192857739264/6dccc22df4cb0051b50548627f36c09b.webp?size=256';
+  if(message.content == '청초봇') {
+    let img = 'https://cdn.discordapp.com/attachments/732152988772073564/732247444968046673/1.png';
     let embed = new Discord.RichEmbed()
-      .setTitle('타이틀')
+      .setTitle(청초봇)
       .setURL('http://www.naver.com')
-      .setAuthor('나긋해', img, 'http://www.naver.com')
+      .setAuthor('후리스', img, 'http://www.naver.com')
       .setThumbnail(img)
       .addBlankField()
       .addField('Inline field title', 'Some value here')
@@ -121,7 +158,7 @@ client.on('message', (message) => {
     let commandList = [
       {name: '!help', desc: 'help'},
       {name: 'ping', desc: '현재 핑 상태'},
-      {name: 'embed', desc: 'embed 예제1'},
+      {name: '청초봇', desc: 'embed 예제1'},
       {name: '!전체공지', desc: 'dm으로 전체 공지 보내기'},
       {name: '!전체공지2', desc: 'dm으로 전체 embed 형식으로 공지 보내기'},
       {name: '!청소', desc: '텍스트 지움'},
@@ -130,9 +167,9 @@ client.on('message', (message) => {
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
-      .setAuthor('Help of 콜라곰 BOT', helpImg)
+      .setAuthor('Help of 청초봇 BOT', helpImg)
       .setColor('#186de6')
-      .setFooter(`콜라곰 BOT ❤️`)
+      .setFooter(`후리스 BOT ❤️`)
       .setTimestamp()
     
     commandList.forEach(x => {
@@ -172,9 +209,9 @@ client.on('message', (message) => {
     if(message.member != null) { // 채널에서 공지 쓸 때
       let contents = message.content.slice('!전체공지2'.length);
       let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of 콜라곰 BOT')
+        .setAuthor('공지 of 후리스 BOT')
         .setColor('#186de6')
-        .setFooter(`콜라곰 BOT ❤️`)
+        .setFooter(`청초BOT`)
         .setTimestamp()
   
       embed.addField('공지: ', contents);
@@ -315,7 +352,7 @@ function MessageSave(message, modify=false) {
     AuthorId: message.author.id,
     AuthorUsername: username + '#' + message.author.discriminator,
     AuthorBot: Number(message.author.bot),
-    Embed: Number(message.embeds.length > 0), // 0이면 false 인거다.
+    Embed: Number(message.embeds.length > 1), // 0이면 false 인거다.
     CreateTime: momenttz().tz('Asia/Seoul').locale('ko').format('ll dddd LTS')
   }
 
