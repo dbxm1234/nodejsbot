@@ -14,3 +14,5 @@
 	symlinks = false
 [credential]
 	helper = manager
+[pull]
+	rebase = false

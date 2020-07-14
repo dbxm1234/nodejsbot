@@ -28,9 +28,9 @@ href="usr/share/git/ReleaseNotes.css">
 </div>
 </div>
 <div class="content">
-<h1>Git for Windows v2.26.2 Release Notes</h1>
+<h1>Git for Windows v2.27.0 Release Notes</h1>
 
-<p>Latest update: April 20th 2020</p>
+<p>Latest update: June 1st 2020</p>
 
 <h2>Introduction</h2>
 
@@ -51,7 +51,7 @@ href="usr/share/git/ReleaseNotes.css">
 </blockquote>
 
 <p>Alternatively, you can double the first slash to avoid POSIX-to-Windows path conversion, e.g. "<code>//usr/bin/bash.exe</code>".</p></li>
-<li>Windows drives are normally recognised within the POSIX path as <code>/c/path/to/dir/</code> where <code>/c/</code> (or appropriate drive letter) is equivalent to the <code>C:\</code> Windows prefix to the <code>\path\to\dir</code>. If this is not recognised, revert to the <code>C:\path\to\dir</code> Windows style.</li>
+<li>Windows drives are normally recognized within the POSIX path as <code>/c/path/to/dir/</code> where <code>/c/</code> (or appropriate drive letter) is equivalent to the <code>C:\</code> Windows prefix to the <code>\path\to\dir</code>. If this is not recognized, revert to the <code>C:\path\to\dir</code> Windows style.</li>
 <li>Git for Windows will not allow commits containing DOS-style truncated 8.3-format filenames ending with a tilde and digit, such as <code>mydocu~1.txt</code>. A workaround is to call <code>git config core.protectNTFS false</code>, which is not advised. Instead, add a rule to .gitignore to ignore the file(s), or rename the file(s).</li>
 <li>Many Windows programs (including the Windows Explorer) have problems with directory trees nested so deeply that the absolute path is longer than 260 characters. Therefore, Git for Windows refuses to check out such files by default. You can overrule this default by setting <code>core.longPaths</code>, e.g. <code>git clone -c core.longPaths=true ...</code>.</li>
 <li>Some commands are not yet supported on Windows and excluded from the installation.</li>
@@ -70,7 +70,34 @@ href="usr/share/git/ReleaseNotes.css">
 
 <p>This package contains software from a number of other projects including Bash, zlib, curl, tcl/tk, perl, MSYS2 and a number of libraries and utilities from the GNU project, licensed under the GNU General Public License. Likewise, it contains Perl which is dual licensed under the GNU General Public License and the Artistic License.</p>
 
-</div><h2 id="v2.26.2" nr="1" class="collapsible"><a name="latest">Changes since Git for Windows v2.26.1<br /><small>(April 9th 2020)</small></a></h2><div>
+</div><h2 id="v2.27.0" nr="1" class="collapsible"> <a name="latest">Changes since Git for Windows v2.26.2<br /><small>(April 20th 2020)</small></a></h2><div>
+
+<p>Due to <a href="https://github.com/git-for-windows/git/pull/2637">a bug when handling symbolic links that was fixed in this version</a>, <code>git status</code> will show symbolic links as modified even as <code>git diff</code> won't report any changes. The quickest work-around is to call <code>git add -u</code> which lets Git realize that nothing changed, actually.</p>
+
+<p>This release comes with a Git Bash that optionally uses <a href="https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/">Windows-native pseudo consoles</a>. Meaning: finally, Git Bash can accommodate console programs like <code>node.exe</code>, Python or PHP, without using the <code>winpty</code> helper (see <a href="#known-issues"><em>Known Issues</em> above</a>). Note that this is still a very new feature and is therefore known to have some corner-case bugs.</p>
+
+<h3>New Features</h3>
+
+<ul>
+<li>Comes with <a href="https://github.com/git/git/blob/v2.27.0/Documentation/RelNotes/2.27.0.txt">Git v2.27.0</a>.</li>
+<li>Comes with <a href="https://www.openssl.org/news/openssl-1.1.1-notes.html">OpenSSL v1.1.1g</a>.</li>
+<li>Comes with <a href="https://curl.haxx.se/changes.html#7_70_0">cURL v7.70.0</a>.</li>
+<li>Comes with <a href="https://svn.apache.org/repos/asf/subversion/tags/1.13.0/CHANGES">subversion v1.13.0</a>.</li>
+<li>Comes with MSYS2 runtime (Git for Windows flavor) based on <a href="https://cygwin.com/ml/cygwin-announce/2020-02/msg00006.html">Cygwin 3.1.4</a>.</li>
+<li>The release notes <a href="https://github.com/git-for-windows/build-extra/pull/281">have been made a bit more readable and are now linked from the Start Menu group</a>.</li>
+<li>The Frequently Asked Questions (FAQ) <a href="https://github.com/git-for-windows/build-extra/pull/283">are now linked in a Start Menu item</a>.</li>
+<li>Comes with <a href="https://github.com/git-lfs/git-lfs/releases/tag/v2.11.0">Git LFS v2.11.0</a>.</li>
+<li>Comes with <a href="https://www.openssh.com/txt/release-8.3">OpenSSH v8.3p1</a>.</li>
+</ul>
+
+<h3>Bug Fixes</h3>
+
+<ul>
+<li>Some Perl packages (e.g. <code>Net::SSLeay</code>) that <a href="https://github.com/git-for-windows/git/issues/2598">had been broken recently</a> have been fixed.</li>
+<li>Git for Windows and WSL Git <a href="https://github.com/git-for-windows/git/pull/2637">now have the same idea of symbolic links' length</a>, i.e. <code>git status</code> will no longer mark them as modified in Git for Windows after checking them out in WSL.</li>
+</ul>
+
+</div><h2 id="v2.26.2" nr="2" class="collapsible"> Changes since Git for Windows v2.26.1<br /><small>(April 9th 2020)</small></h2><div>
 
 <p>Yet another security fix release: With a crafted URL that contains a newline or empty host, or lacks a scheme, the credential helper machinery can be fooled into providing credential information that is not appropriate for the protocol in use and host being contacted (CVE-2020-11008).</p>
 
@@ -88,7 +115,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A recent regression in <code>gitk</code> that prevented it from running in bare repositories <a href="https://github.com/git-for-windows/git/pull/2549">has been fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.26.1" nr="2" class="collapsible">Changes since Git for Windows v2.26.0<br /><small>(March 23rd 2020)</small></h2><div>
+</div><h2 id="v2.26.1" nr="3" class="collapsible"> Changes since Git for Windows v2.26.0<br /><small>(March 23rd 2020)</small></h2><div>
 
 <p>This includes a fix for CVE-2020-5260.</p>
 
@@ -105,7 +132,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git <a href="https://github.com/git-for-windows/git/pull/2574">now accepts more date formats</a> such as <code>%g</code> and <code>%V</code>.</li>
 </ul>
 
-</div><h2 id="v2.26.0" nr="3" class="collapsible">Changes since Git for Windows v2.25.1<br /><small>(February 19th 2020)</small></h2><div>
+</div><h2 id="v2.26.0" nr="4" class="collapsible"> Changes since Git for Windows v2.25.1<br /><small>(February 19th 2020)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -128,7 +155,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>git update-git-for-windows -y</code> <a href="https://github.com/git-for-windows/build-extra/pull/279">now is fully automatable</a>.</li>
 </ul>
 
-</div><h2 id="v2.25.1" nr="4" class="collapsible">Changes since Git for Windows v2.25.0<br /><small>(January 13th 2020)</small></h2><div>
+</div><h2 id="v2.25.1" nr="5" class="collapsible"> Changes since Git for Windows v2.25.0<br /><small>(January 13th 2020)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -149,7 +176,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <code>curl.exe</code> included in Git for Windows <a href="https://github.com/git-for-windows/git/issues/2491">can access SFTP/SSH hosts again</a>.</li>
 </ul>
 
-</div><h2 id="v2.25.0" nr="5" class="collapsible">Changes since Git for Windows v2.24.1(2)<br /><small>(December 10th 2019)</small></h2><div>
+</div><h2 id="v2.25.0" nr="6" class="collapsible"> Changes since Git for Windows v2.24.1(2)<br /><small>(December 10th 2019)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -172,7 +199,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>It is <a href="https://github.com/git-for-windows/git/issues/2435">again possible</a> to clone repositories where <em>some</em> past revision contained file names containing backslashes (Git will of course still refuse to check out such revisions).</li>
 </ul>
 
-</div><h2 id="v2.24.1(2)" nr="6" class="collapsible">Changes since Git for Windows v2.24.0(2)<br /><small>(November 6th 2019)</small></h2><div>
+</div><h2 id="v2.24.1(2)" nr="7" class="collapsible"> Changes since Git for Windows v2.24.0(2)<br /><small>(November 6th 2019)</small></h2><div>
 
 <p>This is a security bug release that fixes CVE-2019-1348, CVE-2019-1349, CVE-2019-1350, CVE-2019-1351, CVE-2019-1352, CVE-2019-1353, CVE-2019-1354, CVE-2019-1387, and CVE-2019-19604.</p>
 
@@ -196,7 +223,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When associating <code>.sh</code> files with Git Bash to allow running them by double-clicking them in the Windows Explorer, shell scripts with non-ASCII characters in their file name <a href="https://github.com/git-for-windows/git/issues/2189">are now supported</a>.</li>
 </ul>
 
-</div><h2 id="v2.24.0(2)" nr="7" class="collapsible">Changes since Git for Windows v2.24.0<br /><small>(November 4th 2019)</small></h2><div>
+</div><h2 id="v2.24.0(2)" nr="8" class="collapsible"> Changes since Git for Windows v2.24.0<br /><small>(November 4th 2019)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -207,7 +234,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A bug in cURL v7.67.0 that caused <code>SSL_read: No error</code> with some servers <a href="https://github.com/git-for-windows/MINGW-packages/commit/7b39ea818c014bafcd7c75f6aefd614fef756164">was fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.24.0" nr="8" class="collapsible">Changes since Git for Windows v2.23.0<br /><small>(August 17th 2019)</small></h2><div>
+</div><h2 id="v2.24.0" nr="9" class="collapsible"> Changes since Git for Windows v2.23.0<br /><small>(August 17th 2019)</small></h2><div>
 
 <p>Note! As a consequence of making <code>git config --system</code> work as expected, the location of the system config is now <code>C:\Program Files\Git\etc\gitconfig</code> (no longer split between <code>C:\Program Files\Git\mingw64\etc\gitconfig</code> and <code>C:\ProgramData\Git\config</code>), and likewise the location of the system gitattributes is now <code>C:\Program Files\Git\etc\gitattributes</code> (no longer <code>C:\Program Files\Git\mingw64\etc\gitattributes</code>). Any manual modifications to <code>C:\ProgramData\Git\config</code> need to be ported manually.</p>
 
@@ -237,7 +264,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The Git for Windows installer <a href="https://github.com/git-for-windows/build-extra/pull/264">no longer complains about a downgrade</a> when upgrading from an <code>-rc</code> version, i.e. from a pre-release leading up to the next major version.</li>
 </ul>
 
-</div><h2 id="v2.23.0" nr="9" class="collapsible">Changes since Git for Windows v2.22.0<br /><small>(June 8th 2019)</small></h2><div>
+</div><h2 id="v2.23.0" nr="10" class="collapsible"> Changes since Git for Windows v2.22.0<br /><small>(June 8th 2019)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -261,7 +288,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fixed <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1211">CVE-2019-1211</a> in MinGit/Portable Git by being more careful about validating the Windows-wide config.</li>
 </ul>
 
-</div><h2 id="v2.22.0" nr="10" class="collapsible">Changes since Git for Windows v2.21.0<br /><small>(February 26th 2019)</small></h2><div>
+</div><h2 id="v2.22.0" nr="11" class="collapsible"> Changes since Git for Windows v2.21.0<br /><small>(February 26th 2019)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -299,7 +326,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>We <a href="https://github.com/git-for-windows/git/pull/2198">now avoid problems updating the commit graph</a> when <code>gc.writeCommitGraph=true</code>.</li>
 </ul>
 
-</div><h2 id="v2.21.0" nr="11" class="collapsible">Changes since Git for Windows v2.20.1<br /><small>(December 15th 2018)</small></h2><div>
+</div><h2 id="v2.21.0" nr="12" class="collapsible"> Changes since Git for Windows v2.20.1<br /><small>(December 15th 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -329,7 +356,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The installer <a href="https://github.com/git-for-windows/git/issues/2011">now configures editors so that the built-in rebase can use them</a>.</li>
 </ul>
 
-</div><h2 id="v2.20.1" nr="12" class="collapsible">Changes since Git for Windows v2.20.0<br /><small>(December 10th 2018)</small></h2><div>
+</div><h2 id="v2.20.1" nr="13" class="collapsible"> Changes since Git for Windows v2.20.0<br /><small>(December 10th 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -344,7 +371,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><a href="https://github.com/git-for-windows/git/pull/1983">Fixes</a> a speed regression in the built-in rebase.</li>
 </ul>
 
-</div><h2 id="v2.20.0" nr="13" class="collapsible">Changes since Git for Windows v2.19.2<br /><small>(November 21st 2018)</small></h2><div>
+</div><h2 id="v2.20.0" nr="14" class="collapsible"> Changes since Git for Windows v2.19.2<br /><small>(November 21st 2018)</small></h2><div>
 
 <p>Please note that Git for Windows v2.19.2 was offered as a full release only for about a week, and then demoted to "pre-release" status, as it had two rather big regressions: 32-bit Git Bash crashed, and git:// was broken.</p>
 
@@ -373,7 +400,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>It is <a href="https://github.com/git-for-windows/git/issues/1650">now possible to call <code>cmd\git.exe</code> via a symbolic link</a>.</li>
 </ul>
 
-</div><h2 id="v2.19.2" nr="14" class="collapsible">Changes since Git for Windows v2.19.1<br /><small>(Oct 5th 2018)</small></h2><div>
+</div><h2 id="v2.19.2" nr="15" class="collapsible"> Changes since Git for Windows v2.19.1<br /><small>(Oct 5th 2018)</small></h2><div>
 
 <ul>
 <li>The <em>Git CMD</em> start menu shortcut is deprecated and will be dropped in future version. Note that the deprecation only affects the shortcut; <code>git-cmd.exe</code> will continue to be distributed and installed.</li>
@@ -400,7 +427,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The 64-bit Portable Git <a href="https://github.com/git-for-windows/build-extra/pull/212">no longer sets <code>pack.packSizeLimit</code></a>.</li>
 </ul>
 
-</div><h2 id="v2.19.1" nr="15" class="collapsible">Changes since Git for Windows v2.19.0<br /><small>(September 11th 2018)</small></h2><div>
+</div><h2 id="v2.19.1" nr="16" class="collapsible"> Changes since Git for Windows v2.19.0<br /><small>(September 11th 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -419,7 +446,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>An <a href="https://github.com/git-for-windows/git/issues/1839">occasional crash in <code>git gc</code></a> (which had been introduced into v2.19.0) has been fixed.</li>
 </ul>
 
-</div><h2 id="v2.19.0" nr="16" class="collapsible">Changes since Git for Windows v2.18.0<br /><small>(June 22nd 2018)</small></h2><div>
+</div><h2 id="v2.19.0" nr="17" class="collapsible"> Changes since Git for Windows v2.18.0<br /><small>(June 22nd 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -447,7 +474,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The funny <a href="https://github.com/git-for-windows/git/issues/356"><code>fatal error -cmalloc would have returned NULL</code> problems</a> should be gone.</li>
 </ul>
 
-</div><h2 id="v2.18.0" nr="17" class="collapsible">Changes since Git for Windows v2.17.1(2)<br /><small>(May 29th 2018)</small></h2><div>
+</div><h2 id="v2.18.0" nr="18" class="collapsible"> Changes since Git for Windows v2.17.1(2)<br /><small>(May 29th 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -465,7 +492,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <code>http.schannel.checkRevoke</code> setting <a href="https://github.com/git-for-windows/git/issues/1531">now really works</a>.</li>
 </ul>
 
-</div><h2 id="v2.17.1(2)" nr="18" class="collapsible">Changes since Git for Windows v2.17.1<br /><small>(May 29th 2018)</small></h2><div>
+</div><h2 id="v2.17.1(2)" nr="19" class="collapsible"> Changes since Git for Windows v2.17.1<br /><small>(May 29th 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -480,7 +507,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>This release <em>really</em> contains Git v2.17.1.</li>
 </ul>
 
-</div><h2 id="v2.17.1" nr="19" class="collapsible">Changes since Git for Windows v2.17.0<br /><small>(April 3rd 2018)</small></h2><div>
+</div><h2 id="v2.17.1" nr="20" class="collapsible"> Changes since Git for Windows v2.17.0<br /><small>(April 3rd 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -508,7 +535,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git <a href="https://github.com/git-for-windows/git/issues/1496">no longer enters an infinite loop</a> when misspelling <code>git status</code> as, say, <code>git Status</code>.</li>
 </ul>
 
-</div><h2 id="v2.17.0" nr="20" class="collapsible">Changes since Git for Windows v2.16.3<br /><small>(March 23rd 2018)</small></h2><div>
+</div><h2 id="v2.17.0" nr="21" class="collapsible"> Changes since Git for Windows v2.16.3<br /><small>(March 23rd 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -525,7 +552,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When <code>git.exe</code> is called with an invalid subcommand,  <a href="https://github.com/git-for-windows/git/issues/1591">it no longer complains about file handles</a>.</li>
 </ul>
 
-</div><h2 id="v2.16.3" nr="21" class="collapsible">Changes since Git for Windows v2.16.2<br /><small>(February 20th 2018)</small></h2><div>
+</div><h2 id="v2.16.3" nr="22" class="collapsible"> Changes since Git for Windows v2.16.2<br /><small>(February 20th 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -553,7 +580,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The certificates of HTTPS proxies configured via <code>http.proxy</code> <a href="https://github.com/git-for-windows/git/issues/1493">are now validated against the <code>ca-bundle.crt</code> correctly</a>.</li>
 </ul>
 
-</div><h2 id="v2.16.2" nr="22" class="collapsible">Changes since Git for Windows v2.16.1(4)<br /><small>(February 7th 2018)</small></h2><div>
+</div><h2 id="v2.16.2" nr="23" class="collapsible"> Changes since Git for Windows v2.16.1(4)<br /><small>(February 7th 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -571,7 +598,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When configuring HTTPS transport to use Secure Channel, <a href="https://github.com/git-for-windows/build-extra/pull/172">we now refrain from configuring <code>http.sslCAInfo</code></a>. This also helps Git LFS (which uses Git for Windows' private <code>http.sslCAInfo</code> setting) to use the same credentials as <code>git fetch</code> and <code>git push</code>.</li>
 </ul>
 
-</div><h2 id="v2.16.1(4)" nr="23" class="collapsible">Changes since Git for Windows v2.16.1(3)<br /><small>(February 6th 2018)</small></h2><div>
+</div><h2 id="v2.16.1(4)" nr="24" class="collapsible"> Changes since Git for Windows v2.16.1(3)<br /><small>(February 6th 2018)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -579,7 +606,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When called from TortoiseGit, <code>git.exe</code> <a href="https://github.com/git-for-windows/git/issues/1481">can now spawn processes again</a>.</li>
 </ul>
 
-</div><h2 id="v2.16.1(3)" nr="24" class="collapsible">Changes since Git for Windows v2.16.1(2)<br /><small>(February 2nd 2018)</small></h2><div>
+</div><h2 id="v2.16.1(3)" nr="25" class="collapsible"> Changes since Git for Windows v2.16.1(2)<br /><small>(February 2nd 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -596,7 +623,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The Perl upgrade in v2.16.1(2) broke <code>git send-email</code>; This <a href="https://github.com/git-for-windows/git/issues/1480">has been fixed</a> by updating the Net-SSLeay Perl module.</li>
 </ul>
 
-</div><h2 id="v2.16.1(2)" nr="25" class="collapsible">Changes since Git for Windows v2.16.1<br /><small>(January 22nd 2018)</small></h2><div>
+</div><h2 id="v2.16.1(2)" nr="26" class="collapsible"> Changes since Git for Windows v2.16.1<br /><small>(January 22nd 2018)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -617,7 +644,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <code>git update</code> command <a href="https://github.com/git-for-windows/build-extra/pull/167">has been renamed to <code>git update-git-for-windows</code></a> to avoid confusion where users may think that <code>git update</code> updates their local repository or worktree.</li>
 </ul>
 
-</div><h2 id="v2.16.1" nr="26" class="collapsible">Changes since Git for Windows v2.16.0(2)<br /><small>(January 18th 2018)</small></h2><div>
+</div><h2 id="v2.16.1" nr="27" class="collapsible"> Changes since Git for Windows v2.16.0(2)<br /><small>(January 18th 2018)</small></h2><div>
 
 <p>This is a hotfix release, based on upstream Git's hotfix to address a possible segmentation fault associated with case-insensitive file systems.</p>
 
@@ -635,7 +662,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A set of regressions introduced by patches intended to speed up <code>reset</code> and <code>checkout</code> was fixed (issues <a href="https://github.com/git-for-windows/git/issues/1437">#1437</a>, <a href="https://github.com/git-for-windows/git/issues/1438">#1438</a>, <a href="https://github.com/git-for-windows/git/issues/1440">#1440</a> and <a href="https://github.com/git-for-windows/git/issues/1442">#1442</a>).</li>
 </ul>
 
-</div><h2 id="v2.16.0(2)" nr="27" class="collapsible">Changes since Git for Windows v2.15.1(2)<br /><small>(November 30th 2017)</small></h2><div>
+</div><h2 id="v2.16.0(2)" nr="28" class="collapsible"> Changes since Git for Windows v2.15.1(2)<br /><small>(November 30th 2017)</small></h2><div>
 
 <p>Git for Windows now has a new homepage: <a href="https://gitforwindows.org/">https://gitforwindows.org/</a> (it is still graciously hosted by GitHub, but now much quicker to type).</p>
 
@@ -659,7 +686,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Interrupting processes (and their children) using Control+C <a href="https://github.com/git-for-windows/msys2-runtime/pull/16">is now a lot more robust</a>.</li>
 </ul>
 
-</div><h2 id="v2.15.1(2)" nr="28" class="collapsible">Changes since Git for Windows v2.15.1<br /><small>(November 29th 2017)</small></h2><div>
+</div><h2 id="v2.15.1(2)" nr="29" class="collapsible"> Changes since Git for Windows v2.15.1<br /><small>(November 29th 2017)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -667,7 +694,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The bug introduced into Git for Windows v2.15.1 where <code>vim</code> would show an ugly warning upon startup <a href="https://github.com/git-for-windows/git/issues/1382">was fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.15.1" nr="29" class="collapsible">Changes since Git for Windows v2.15.0<br /><small>(October 30th 2017)</small></h2><div>
+</div><h2 id="v2.15.1" nr="30" class="collapsible"> Changes since Git for Windows v2.15.0<br /><small>(October 30th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -688,7 +715,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <code>git update</code> command (to auto-update Git for Windows) will <a href="https://github.com/git-for-windows/git/issues/1363">now also work behind proxies</a>.</li>
 </ul>
 
-</div><h2 id="v2.15.0" nr="30" class="collapsible">Changes since Git for Windows v2.14.3<br /><small>(October 23rd 2017)</small></h2><div>
+</div><h2 id="v2.15.0" nr="31" class="collapsible"> Changes since Git for Windows v2.14.3<br /><small>(October 23rd 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -706,7 +733,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git for Windows <a href="https://github.com/git-for-windows/build-extra/commit/c86d164f2c9d5c79cd95f1fda881f9e80ca9dc3a">no longer includes (non-working) <code>xmlcatalog.exe</code> and <code>xmllint.exe</code></a>.</li>
 </ul>
 
-</div><h2 id="v2.14.3" nr="31" class="collapsible">Changes since Git for Windows v2.14.2(3)<br /><small>(October 12th 2017)</small></h2><div>
+</div><h2 id="v2.14.3" nr="32" class="collapsible"> Changes since Git for Windows v2.14.2(3)<br /><small>(October 12th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -723,7 +750,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git for Windows <a href="https://github.com/git-for-windows/git/issues/1320">now handles worktrees at the top-level of a UNC share correctly</a>.</li>
 </ul>
 
-</div><h2 id="v2.14.2(3)" nr="32" class="collapsible">Changes since Git for Windows v2.14.2(2)<br /><small>(October 5th 2017)</small></h2><div>
+</div><h2 id="v2.14.2(3)" nr="33" class="collapsible"> Changes since Git for Windows v2.14.2(2)<br /><small>(October 5th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -737,7 +764,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><a href="https://github.com/git-for-windows/build-extra/commit/b46fba6f44b3680210b19ef5fc9ce22ca1dcda55">Re-enabled some SSHv1 ciphers</a> since some sites (e.g. Visual Studio Team Services) rely on them for the time being.</li>
 </ul>
 
-</div><h2 id="v2.14.2(2)" nr="33" class="collapsible">Changes since Git for Windows v2.14.2<br /><small>(September 26th 2017)</small></h2><div>
+</div><h2 id="v2.14.2(2)" nr="34" class="collapsible"> Changes since Git for Windows v2.14.2<br /><small>(September 26th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -756,7 +783,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A crash when calling <code>kill &lt;pid&gt;</code> for a non-existing process <a href="https://github.com/git-for-windows/git/issues/1316">was fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.14.2" nr="34" class="collapsible">Changes since Git for Windows v2.14.1<br /><small>(August 10th 2017)</small></h2><div>
+</div><h2 id="v2.14.2" nr="35" class="collapsible"> Changes since Git for Windows v2.14.1<br /><small>(August 10th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -790,7 +817,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Before installing Git for Windows, we already verified that no Git Bash instance is active (which would prevent files from being overwritten). We <a href="https://github.com/git-for-windows/build-extra/commit/1b93b50cf08c6cbd3200a66603d28fbd269c2f6a">now also verify that no <code>git.exe</code> processes are active, either</a>.</li>
 </ul>
 
-</div><h2 id="v2.14.1" nr="35" class="collapsible">Changes since Git for Windows v2.14.0(2)<br /><small>(August 7th 2017)</small></h2><div>
+</div><h2 id="v2.14.1" nr="36" class="collapsible"> Changes since Git for Windows v2.14.0(2)<br /><small>(August 7th 2017)</small></h2><div>
 
 <p>Note: there have been MinGit-only releases v2.12.2(3) and v2.13.1(3) with backports of the important bug fix in v2.14.1 as well as the experimental <code>--show-ignored-directory</code> option of <code>git status</code>.</p>
 
@@ -802,7 +829,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <em>Git Bash Here</em> context menu item <a href="https://github.com/git-for-windows/build-extra/pull/150">is now also available</a> in the special <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dd758096.aspx">Libraries folders</a>.</li>
 </ul>
 
-</div><h2 id="v2.14.0(2)" nr="36" class="collapsible">Changes since Git for Windows v2.14.0<br /><small>(August 6th 2017)</small></h2><div>
+</div><h2 id="v2.14.0(2)" nr="37" class="collapsible"> Changes since Git for Windows v2.14.0<br /><small>(August 6th 2017)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -810,7 +837,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A regression introduced in v2.14.0 that prevented fetching via SSH <a href="https://github.com/git-for-windows/git/issues/1258">was fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.14.0" nr="37" class="collapsible">Changes since Git for Windows v2.13.3<br /><small>(July 13th 2017)</small></h2><div>
+</div><h2 id="v2.14.0" nr="38" class="collapsible"> Changes since Git for Windows v2.13.3<br /><small>(July 13th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -831,7 +858,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The 32-bit Git binaries are now built against the same dependencies that are shipped with Git for Windows.</li>
 </ul>
 
-</div><h2 id="v2.13.3" nr="38" class="collapsible">Changes since Git for Windows v2.13.2<br /><small>(June 26th 2017)</small></h2><div>
+</div><h2 id="v2.13.3" nr="39" class="collapsible"> Changes since Git for Windows v2.13.2<br /><small>(June 26th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -847,7 +874,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git Bash <a href="https://github.com/git-for-windows/git/issues/1226">no longer tries to use the <code>getent</code> tool</a> which was never shipped with Git for Windows.</li>
 </ul>
 
-</div><h2 id="v2.13.2" nr="39" class="collapsible">Changes since Git for Windows v2.13.1(2)<br /><small>(June 15th 2017)</small></h2><div>
+</div><h2 id="v2.13.2" nr="40" class="collapsible"> Changes since Git for Windows v2.13.1(2)<br /><small>(June 15th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -858,7 +885,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Comes with <a href="https://curl.haxx.se/changes.html#7_54_1">cURL v7.54.1</a>.</li>
 </ul>
 
-</div><h2 id="v2.13.1(2)" nr="40" class="collapsible">Changes since Git for Windows v2.13.1<br /><small>(June 13th 2017)</small></h2><div>
+</div><h2 id="v2.13.1(2)" nr="41" class="collapsible"> Changes since Git for Windows v2.13.1<br /><small>(June 13th 2017)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -866,7 +893,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>git commit</code> and <code>git status</code> <a href="https://github.com/git-for-windows/git/issues/1202">no longer randomly throw segmentation faults</a>.</li>
 </ul>
 
-</div><h2 id="v2.13.1" nr="41" class="collapsible">Changes since Git for Windows v2.13.0<br /><small>(May 10th 2017)</small></h2><div>
+</div><h2 id="v2.13.1" nr="42" class="collapsible"> Changes since Git for Windows v2.13.0<br /><small>(May 10th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -891,7 +918,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When hitting Ctrl+T in Git GUI to stage files, but the file list is empty, Git GUI <a href="https://github.com/git-for-windows/git/issues/1075">no longer shows an exception window</a>.</li>
 </ul>
 
-</div><h2 id="v2.13.0" nr="42" class="collapsible">Changes since Git for Windows v2.12.2(2)<br /><small>(April 5th 2017)</small></h2><div>
+</div><h2 id="v2.13.0" nr="43" class="collapsible"> Changes since Git for Windows v2.12.2(2)<br /><small>(April 5th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -911,7 +938,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>On Windows, absolute paths can start with a backslash (implicitly referring to the same drive as the current directory), and now <code>git clone</code> <a href="https://github.com/git-for-windows/git/commit/fad23e90efc">can use those paths, too</a>.</li>
 </ul>
 
-</div><h2 id="v2.12.2(2)" nr="43" class="collapsible">Changes since Git for Windows v2.12.2<br /><small>(March 27th 2017)</small></h2><div>
+</div><h2 id="v2.12.2(2)" nr="44" class="collapsible"> Changes since Git for Windows v2.12.2<br /><small>(March 27th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -933,7 +960,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>git difftool -d</code> <a href="https://github.com/git-for-windows/git/issues/1124">no longer crashes randomly</a>.</li>
 </ul>
 
-</div><h2 id="v2.12.2" nr="44" class="collapsible">Changes since Git for Windows v2.12.1<br /><small>(March 21st 2017)</small></h2><div>
+</div><h2 id="v2.12.2" nr="45" class="collapsible"> Changes since Git for Windows v2.12.1<br /><small>(March 21st 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -942,7 +969,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>An earlier iteration of the changes speeding up the case-insensitive cache of file names was replaced by <a href="https://github.com/git-for-windows/git/commit/212247dd6345c820deeae61fcdf2f10cea10525a">a new iteration</a>.</li>
 </ul>
 
-</div><h2 id="v2.12.1" nr="45" class="collapsible">Changes since Git for Windows v2.12.0<br /><small>(February 25th 2017)</small></h2><div>
+</div><h2 id="v2.12.1" nr="46" class="collapsible"> Changes since Git for Windows v2.12.0<br /><small>(February 25th 2017)</small></h2><div>
 
 <p>A <a href="https://github.com/git-for-windows/git/releases/tag/v2.12.0.windows.2">MinGit-only v2.12.0(2)</a> was released in the meantime.</p>
 
@@ -969,7 +996,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <code>ORIGINAL_PATH</code> variable, recently introduced by the MSYS2 project to allow for special "PATH modes", <a href="https://github.com/git-for-windows/msys2-runtime/commit/476605ced959f217b3820157b8101b4529fa6a0d">is now handled in the same manner as the <code>PATH</code> variable</a> when jumping the Windows&lt;->MSYS2 boundary, fixing issues when <code>ORIGINAL_PATH</code> is converted to Windows format and back again.</li>
 </ul>
 
-</div><h2 id="v2.12.0" nr="46" class="collapsible">Changes since Git for Windows v2.11.1<br /><small>(February 3rd 2017)</small></h2><div>
+</div><h2 id="v2.12.0" nr="47" class="collapsible"> Changes since Git for Windows v2.11.1<br /><small>(February 3rd 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -993,7 +1020,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git for Windows <a href="https://github.com/git-for-windows/git/issues/1034">no longer attempts to send empty credentials to HTTP(S) servers that handle only Basic and/or Digest authentication</a>.</li>
 </ul>
 
-</div><h2 id="v2.11.1" nr="47" class="collapsible">Changes since Git for Windows v2.11.0(3)<br /><small>(January 14th 2017)</small></h2><div>
+</div><h2 id="v2.11.1" nr="48" class="collapsible"> Changes since Git for Windows v2.11.0(3)<br /><small>(January 14th 2017)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1010,7 +1037,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When the <code>PATH</code> contains UNC entries, Git Bash will <a href="https://github.com/git-for-windows/git/issues/1033">no longer error out with a "Bad address" error message</a>.</li>
 </ul>
 
-</div><h2 id="v2.11.0(3)" nr="48" class="collapsible">Changes since Git for Windows v2.11.0(2)<br /><small>(January 13th 2017)</small></h2><div>
+</div><h2 id="v2.11.0(3)" nr="49" class="collapsible"> Changes since Git for Windows v2.11.0(2)<br /><small>(January 13th 2017)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -1019,7 +1046,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A regression in <code>rebase -i</code>, introduced into v2.11.0(2), which caused commit attribution to be mishandled after resolving conflicts, <a href="https://github.com/git-for-windows/git/commit/e11df2efb3072fe73153442589129d2eb8d9ea02">was fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.11.0(2)" nr="49" class="collapsible">Changes since Git for Windows v2.11.0<br /><small>(December 1st 2016)</small></h2><div>
+</div><h2 id="v2.11.0(2)" nr="50" class="collapsible"> Changes since Git for Windows v2.11.0<br /><small>(December 1st 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1045,7 +1072,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><a href="https://github.com/git-for-windows/git/commit/ecb88230d10382833dc961f83cd1092b8d0a2af2">Fixed a bug</a> in the experimental builtin difftool where it would not handle copied/renamed files properly.</li>
 </ul>
 
-</div><h2 id="v2.11.0" nr="50" class="collapsible">Changes since Git for Windows v2.10.2<br /><small>(November 2nd 2016)</small></h2><div>
+</div><h2 id="v2.11.0" nr="51" class="collapsible"> Changes since Git for Windows v2.10.2<br /><small>(November 2nd 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1071,7 +1098,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A certain scenario that could cause a crash in cherry-pick <a href="https://github.com/git-for-windows/git/issues/952">no longer causes that</a>.</li>
 </ul>
 
-</div><h2 id="v2.10.2" nr="51" class="collapsible">Changes since Git for Windows v2.10.1(2)<br /><small>(October 13th 2016)</small></h2><div>
+</div><h2 id="v2.10.2" nr="52" class="collapsible"> Changes since Git for Windows v2.10.1(2)<br /><small>(October 13th 2016)</small></h2><div>
 
 <p>Git for windows v2.10.1(2) was a MinGit-only release (i.e. there was no Git for windows installer for that version).</p>
 
@@ -1095,7 +1122,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When trying to install/upgrade on a Windows version that is no longer supported, <a href="https://github.com/git-for-windows/git/issues/928">we now refuse to do so</a>.</li>
 </ul>
 
-</div><h2 id="v2.10.1(2)" nr="52" class="collapsible">Changes since Git for Windows v2.10.1<br /><small>(October 4th 2016)</small></h2><div>
+</div><h2 id="v2.10.1(2)" nr="53" class="collapsible"> Changes since Git for Windows v2.10.1<br /><small>(October 4th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1104,7 +1131,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <code>git reset</code> command <a href="https://github.com/git-for-windows/git/commit/6a6c0e84720ab5a374b61341ba9ab645ffafd35f">learned the (still experimental) <code>--stdin</code> option</a>.</li>
 </ul>
 
-</div><h2 id="v2.10.1" nr="53" class="collapsible">Changes since Git for Windows v2.10.0<br /><small>(September 3rd 2016)</small></h2><div>
+</div><h2 id="v2.10.1" nr="54" class="collapsible"> Changes since Git for Windows v2.10.0<br /><small>(September 3rd 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1127,7 +1154,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Upgrades the bundled OpenSSL to <a href="https://www.openssl.org/news/cl102.txt">v1.0.2j</a>.</li>
 </ul>
 
-</div><h2 id="v2.10.0" nr="54" class="collapsible">Changes since Git for Windows v2.9.3(2)<br /><small>(August 25th 2016)</small></h2><div>
+</div><h2 id="v2.10.0" nr="55" class="collapsible"> Changes since Git for Windows v2.9.3(2)<br /><small>(August 25th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1145,7 +1172,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git for Windows' SDK <a href="https://github.com/git-for-windows/build-extra/commit/955e82b25a825f005946e7e4951e29404370aa94">can build an installer out of the box again</a>, without requiring an extra package to be installed.</li>
 </ul>
 
-</div><h2 id="v2.9.3(2)" nr="55" class="collapsible">Changes since Git for Windows v2.9.3<br /><small>(August 13th 2016)</small></h2><div>
+</div><h2 id="v2.9.3(2)" nr="56" class="collapsible"> Changes since Git for Windows v2.9.3<br /><small>(August 13th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1156,7 +1183,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git's .exe files are now <a href="https://github.com/git-for-windows/build-extra/commit/3e9b83526">code-signed</a>, helping with performance when being run with <a href="https://en.wikipedia.org/wiki/Windows_File_Protection">Windows File Protection</a>.</li>
 </ul>
 
-</div><h2 id="v2.9.3" nr="56" class="collapsible">Changes since Git for Windows v2.9.2<br /><small>(July 16th 2016)</small></h2><div>
+</div><h2 id="v2.9.3" nr="57" class="collapsible"> Changes since Git for Windows v2.9.2<br /><small>(July 16th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1175,7 +1202,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When <code>~/.gitconfig</code> sets <code>core.hideDotFiles=false</code>, <code>git init</code> <a href="https://github.com/git-for-windows/git/issues/789">respects that again</a>.</li>
 </ul>
 
-</div><h2 id="v2.9.2" nr="57" class="collapsible">Changes since Git for Windows v2.9.0<br /><small>(June 14th 2016)</small></h2><div>
+</div><h2 id="v2.9.2" nr="58" class="collapsible"> Changes since Git for Windows v2.9.0<br /><small>(June 14th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1196,7 +1223,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When configuring <code>notepad</code> as commit message editor, <a href="https://github.com/git-for-windows/build-extra/pull/123">UTF-8 messages are now handled correctly</a>.</li>
 </ul>
 
-</div><h2 id="v2.9.0" nr="58" class="collapsible">Changes since Git for Windows v2.8.4<br /><small>(June 7th 2016)</small></h2><div>
+</div><h2 id="v2.9.0" nr="59" class="collapsible"> Changes since Git for Windows v2.8.4<br /><small>(June 7th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1210,7 +1237,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When running <code>git gc --aggressive</code> or <code>git repack -ald</code> in the presence of multiple pack files, the command still had open handles to the pack files it wanted to remove. This <a href="https://github.com/git-for-windows/git/commit/85bc5ad9a69fa120b23471d483dc8da35d771ab7">has been fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.8.4" nr="59" class="collapsible">Changes since Git for Windows v2.8.3<br /><small>(May 20th 2016)</small></h2><div>
+</div><h2 id="v2.8.4" nr="60" class="collapsible"> Changes since Git for Windows v2.8.3<br /><small>(May 20th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1225,7 +1252,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When configuring Git Bash with Windows' default console, it <a href="https://github.com/git-for-windows/build-extra/pull/118">no longer loses its icon</a>.</li>
 </ul>
 
-</div><h2 id="v2.8.3" nr="60" class="collapsible">Changes since Git for Windows v2.8.2<br /><small>(May 3rd 2016)</small></h2><div>
+</div><h2 id="v2.8.3" nr="61" class="collapsible"> Changes since Git for Windows v2.8.2<br /><small>(May 3rd 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1233,7 +1260,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Comes with <a href="https://github.com/git/git/blob/v2.8.3/Documentation/RelNotes/2.8.3.txt">Git v2.8.3</a>.</li>
 </ul>
 
-</div><h2 id="v2.8.2" nr="61" class="collapsible">Changes since Git for Windows v2.8.1<br /><small>(April 4th 2016)</small></h2><div>
+</div><h2 id="v2.8.2" nr="62" class="collapsible"> Changes since Git for Windows v2.8.1<br /><small>(April 4th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1252,7 +1279,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>OpenSSL received a critical update to <a href="https://www.openssl.org/news/newslog.html">version 1.0.2h</a>.</li>
 </ul>
 
-</div><h2 id="v2.8.1" nr="62" class="collapsible">Changes since Git for Windows v2.8.0<br /><small>(March 29th 2016)</small></h2><div>
+</div><h2 id="v2.8.1" nr="63" class="collapsible"> Changes since Git for Windows v2.8.0<br /><small>(March 29th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1268,7 +1295,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>GIT_SSH (and other executable paths that Git wants to spawn) <a href="https://github.com/git-for-windows/git/issues/692">can now contain spaces</a>.</li>
 </ul>
 
-</div><h2 id="v2.8.0" nr="63" class="collapsible">Changes since Git for Windows v2.7.4<br /><small>(March 18th 2016)</small></h2><div>
+</div><h2 id="v2.8.0" nr="64" class="collapsible"> Changes since Git for Windows v2.7.4<br /><small>(March 18th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1287,7 +1314,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The installer <a href="https://github.com/git-for-windows/build-extra/pull/104">now changes the label of the <code>Next</code> button to <code>Install</code></a> on the last wizard page before installing.</li>
 </ul>
 
-</div><h2 id="v2.7.4" nr="64" class="collapsible">Changes since Git for Windows v2.7.3<br /><small>(March 15th 2016)</small></h2><div>
+</div><h2 id="v2.7.4" nr="65" class="collapsible"> Changes since Git for Windows v2.7.3<br /><small>(March 15th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1301,7 +1328,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The Git Credential Manager hyperlink in the installer <a href="https://github.com/git-for-windows/build-extra/commit/28bb2a330323ba1c69f278cafa81e3e4fd3bf71c">is no longer blurred</a>.</li>
 </ul>
 
-</div><h2 id="v2.7.3" nr="65" class="collapsible">Changes since Git for Windows v2.7.2<br /><small>(February 23rd 2016)</small></h2><div>
+</div><h2 id="v2.7.3" nr="66" class="collapsible"> Changes since Git for Windows v2.7.2<br /><small>(February 23rd 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1319,7 +1346,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>We <a href="https://github.com/git-for-windows/git/pull/677">no longer show asterisks when reading the username for credentials</a>.</li>
 </ul>
 
-</div><h2 id="v2.7.2" nr="66" class="collapsible">Changes since Git for Windows v2.7.1(2)<br /><small>(February 12th 2016)</small></h2><div>
+</div><h2 id="v2.7.2" nr="67" class="collapsible"> Changes since Git for Windows v2.7.1(2)<br /><small>(February 12th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1339,7 +1366,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When launching <code>C:\Program Files\Git\bin\bash -l -i</code> in a cmd window and pressing Ctrl+C, <a href="https://github.com/git-for-windows/git/pull/205">the console is no longer corrupted</a> (previously, the <code>bash.exe</code> redirector would terminate and both cmd &amp; Bash would compete for user input).</li>
 </ul>
 
-</div><h2 id="v2.7.1(2)" nr="67" class="collapsible">Changes since Git for Windows v2.7.1<br /><small>(February 6th 2016)</small></h2><div>
+</div><h2 id="v2.7.1(2)" nr="68" class="collapsible"> Changes since Git for Windows v2.7.1<br /><small>(February 6th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1354,7 +1381,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Thanks to Eric Lawrence and Martijn Laan, <a href="https://github.com/git-for-windows/build-extra/tree/master/installer/InnoSetup">our installer sports a better way to look for system files now</a>.</li>
 </ul>
 
-</div><h2 id="v2.7.1" nr="68" class="collapsible">Changes since Git for Windows v2.7.0(2)<br /><small>(February 2nd 2016)</small></h2><div>
+</div><h2 id="v2.7.1" nr="69" class="collapsible"> Changes since Git for Windows v2.7.0(2)<br /><small>(February 2nd 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1370,7 +1397,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>A bug in one of the DLLs used by Git for Windows <a href="https://github.com/Alexpux/MINGW-packages/pull/1051">was fixed</a> that prevented Git from working properly in 64-bit setups where <a href="https://technet.microsoft.com/en-us/library/cc779664%28v=ws.10%29.aspx">the <code>FLG_LDR_TOP_DOWN</code> global flag</a> is set.</li>
 </ul>
 
-</div><h2 id="v2.7.0(2)" nr="69" class="collapsible">Changes since Git for Windows v2.7.0<br /><small>(January 5th 2016)</small></h2><div>
+</div><h2 id="v2.7.0(2)" nr="70" class="collapsible"> Changes since Git for Windows v2.7.0<br /><small>(January 5th 2016)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1392,7 +1419,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>More file locking issues ("Unlink of file ... failed. Should I try again?") <a href="https://github.com/git-for-windows/git/issues/500">were fixed</a>.</li>
 </ul>
 
-</div><h2 id="v2.7.0" nr="70" class="collapsible">Changes since Git for Windows v2.6.4<br /><small>(December 14th 2015)</small></h2><div>
+</div><h2 id="v2.7.0" nr="71" class="collapsible"> Changes since Git for Windows v2.6.4<br /><small>(December 14th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1406,7 +1433,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Non-ASCII command-lines are now <a href="https://github.com/git-for-windows/msys2-runtime/commit/4c362726c41102173613658">passed properly</a> to shell scripts.</li>
 </ul>
 
-</div><h2 id="v2.6.4" nr="71" class="collapsible">Changes since Git for Windows v2.6.3<br /><small>(November 10th 2015)</small></h2><div>
+</div><h2 id="v2.6.4" nr="72" class="collapsible"> Changes since Git for Windows v2.6.3<br /><small>(November 10th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1423,7 +1450,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>An additional work-around from upstream Git for <code>SHELL_PATH</code> containing spaces (fixing <a href="https://github.com/git-for-windows/git/issues/542">problems with interactive rebase's <code>exec</code> command</a> has been applied.</li>
 </ul>
 
-</div><h2 id="v2.6.3" nr="72" class="collapsible">Changes since Git for Windows v2.6.2<br /><small>(October 19th 2015)</small></h2><div>
+</div><h2 id="v2.6.3" nr="73" class="collapsible"> Changes since Git for Windows v2.6.2<br /><small>(October 19th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1442,7 +1469,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When <code>notepad</code> is configured as default editor, we no longer do anything specially <a href="https://github.com/git-for-windows/git/issues/488">unless editing files inside <code>.git/</code></a>.</li>
 </ul>
 
-</div><h2 id="v2.6.2" nr="73" class="collapsible">Changes since Git for Windows v2.6.1<br /><small>(October 5th 2015)</small></h2><div>
+</div><h2 id="v2.6.2" nr="74" class="collapsible"> Changes since Git for Windows v2.6.1<br /><small>(October 5th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1459,7 +1486,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><em>Git GUI</em> now respects the <a href="https://github.com/git-for-windows/git/issues/490">terminal emulation chosen at install time</a> when <a href="https://github.com/git-for-windows/git/pull/492">running the <em>Git Bash</em></a>.</li>
 </ul>
 
-<h2>Changes since Git-2.6.0 (September 29th 2015)</h2>
+</div><h2 id="v2.6.1" nr="75" class="collapsible"> Changes since Git-2.6.0<br /><small>(September 29th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1479,7 +1506,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When installing Git for Windows as regular user, <a href="https://github.com/git-for-windows/git/issues/455">the installer no longer tries to create privileged registry keys</a>.</li>
 </ul>
 
-<h2>Changes since Git-2.5.3 (September 18th 2015)</h2>
+</div><h2 id="v2.6.0" nr="76" class="collapsible"> Changes since Git-2.5.3<br /><small>(September 18th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1507,7 +1534,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The 64-bit version <a href="https://github.com/git-for-windows/git/issues/449">now includes</a> the <code>astextplain</code> script it lacked by mistake.</li>
 </ul>
 
-<h2>Changes since Git-2.5.2(2) (September 13th 2015)</h2>
+</div><h2 id="v2.5.3" nr="77" class="collapsible"> Changes since Git-2.5.2(2)<br /><small>(September 13th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1532,7 +1559,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When run inside the PowerShell, Git no longer gets confused when the current directory's path and what is recorded in the file system differs in case (e.g. "GIT/" vs "Git/").</li>
 </ul>
 
-<h2>Changes since Git-2.5.2 (September 10th 2015)</h2>
+</div><h2 id="v2.5.2(2)" nr="78" class="collapsible"> Changes since Git-2.5.2<br /><small>(September 10th 2015)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -1543,7 +1570,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Tab completion in the context of a large Active Directory <a href="https://github.com/git-for-windows/git/issues/377">is no longer slow</a>.</li>
 </ul>
 
-<h2>Changes since Git-2.5.1 (August 31th 2015)</h2>
+</div><h2 id="v2.5.2" nr="79" class="collapsible"> Changes since Git-2.5.1<br /><small>(August 31th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1564,7 +1591,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git <a href="https://github.com/git-for-windows/git/issues/329">no longer asks for a DVD to be inserted again</a> when one has been ejected from the <code>D:</code> drive.</li>
 </ul>
 
-<h2>Changes since Git-2.5.0 (August 18th 2015)</h2>
+</div><h2 id="v2.5.1" nr="80" class="collapsible"> Changes since Git-2.5.0<br /><small>(August 18th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1587,7 +1614,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The <code>patch</code> tool <a href="https://github.com/git-for-windows/build-extra/pull/74">is now included again</a> as it was in Git for Windows 1.x.</li>
 </ul>
 
-<h2>Changes since Git-2.4.6 (July 18th 2015)</h2>
+</div><h2 id="v2.5.0" nr="81" class="collapsible"> Changes since Git-2.4.6<br /><small>(July 18th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1604,7 +1631,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git <a href="https://github.com/git-for-windows/git/issues/255">no longer warns about being unable to read bogus Git attributes</a>.</li>
 </ul>
 
-<h2>Changes since Git-2.4.5 (June 29th 2015)</h2>
+</div><h2 id="v2.4.6" nr="82" class="collapsible"> Changes since Git-2.4.5<br /><small>(June 29th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1619,7 +1646,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>git svn</code> learned <a href="https://github.com/git-for-windows/git/pull/246"><em>not</em> to reuse incompatible on-disk caches left over from previous Git for Windows versions</a>.</li>
 </ul>
 
-<h2>Changes since Git-2.4.4 (June 20th 2015)</h2>
+</div><h2 id="v2.4.5" nr="83" class="collapsible"> Changes since Git-2.4.4<br /><small>(June 20th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1633,7 +1660,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git Bash <a href="https://github.com/git-for-windows/git/issues/222">no longer crashes when called with <code>TERM=msys</code></a>. This reinstates compatibility with GitHub for Windows.</li>
 </ul>
 
-<h2>Changes since Git-2.4.3 (June 12th 2015)</h2>
+</div><h2 id="v2.4.4" nr="84" class="collapsible"> Changes since Git-2.4.3<br /><small>(June 12th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1651,7 +1678,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>When using <code>core.symlinks = true</code> while cloning repositories with symbolic links pointing to directories, <a href="https://github.com/git-for-windows/git/issues/210"><code>git status</code> no longer shows bogus modifications</a>.</li>
 </ul>
 
-<h2>Changes since Git-2.4.2 (May 27th 2015)</h2>
+</div><h2 id="v2.4.3" nr="85" class="collapsible"> Changes since Git-2.4.2<br /><small>(May 27th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1669,7 +1696,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><em>Git Bash Here</em> works even from the context menu of the empty area in Windows Explorer's view of C:\, D:\, etc (https://github.com/git-for-windows/git/issues/176).</li>
 </ul>
 
-<h2>Changes since Git-2.4.1 (May 14th 2015)</h2>
+</div><h2 id="v2.4.2" nr="86" class="collapsible"> Changes since Git-2.4.1<br /><small>(May 14th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1685,7 +1712,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><a href="https://github.com/git-for-windows/msys2-runtime/pull/9">Auto-mount the temporary directory of the current user to <code>/tmp/</code> again</a>, just like Git for Windows 1.x did (thanks to MSys1's hard-coded mount point).</li>
 </ul>
 
-<h2>Changes since Git-2.4.0(2) (May 7th 2015)</h2>
+</div><h2 id="v2.4.1" nr="87" class="collapsible"> Changes since Git-2.4.0(2)<br /><small>(May 7th 2015)</small></h2><div>
 
 <h3>New Features</h3>
 
@@ -1700,7 +1727,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The password <a href="https://github.com/git-for-windows/git/issues/124">can be entered interactively again</a> when <code>git push</code>ing to a HTTPS remote.</li>
 </ul>
 
-<h2>Changes since Git-2.4.0 (May 5th 2015)</h2>
+</div><h2 id="v2.4.0(2)" nr="88" class="collapsible"> Changes since Git-2.4.0<br /><small>(May 5th 2015)</small></h2><div>
 
 <h3>Bug Fixes</h3>
 
@@ -1715,7 +1742,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The installer now offers the choice between opening the <em>Git Bash</em> in a MinTTY (default) or a regular Windows console window (Git for Windows 1.x' setting).</li>
 </ul>
 
-<h2>Changes since Git-2.3.7-preview20150429</h2>
+</div><h2 id="v2.4.0" nr="89" class="collapsible"> Changes since Git-2.3.7-preview20150429</h2><div>
 
 <h3>New Features</h3>
 
@@ -1734,7 +1761,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>All files that are part of the installation will now be registered so they are deleted upon uninstall</li>
 </ul>
 
-<h2>Changes since Git-2.3.6-preview20150425</h2>
+</div><h2 id="v2.3.7-preview20150429" nr="90" class="collapsible"> Changes since Git-2.3.6-preview20150425</h2><div>
 
 <h3>New Features</h3>
 
@@ -1749,7 +1776,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The home directory can be overridden using the <code>$HOME</code> environment variable again</li>
 </ul>
 
-<h2>Changes since Git-2.3.5-preview20150402</h2>
+</div><h2 id="v2.3.6-preview20150425" nr="91" class="collapsible"> Changes since Git-2.3.5-preview20150402</h2><div>
 
 <h3>New Features</h3>
 
@@ -1768,7 +1795,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Respects the newly introduced Windows-wide <code>%PROGRAMDATA%\Git\config</code> configuration</li>
 </ul>
 
-<h2>Changes since Git-1.9.5-preview20150402</h2>
+</div><h2 id="v2.3.5-preview20150402" nr="92" class="collapsible"> Changes since Git-1.9.5-preview20150402</h2><div>
 
 <h3>New Features</h3>
 
@@ -1785,7 +1812,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>No longer ships with Git Cheetah (because there are better-maintained Explorer extensions out there).</li>
 </ul>
 
-<h2>Changes since Git-1.9.5-preview20141217</h2>
+</div><h2 id="v1.9.5-preview20150402" nr="93" class="collapsible"> Changes since Git-1.9.5-preview20141217</h2><div>
 
 <h3>New Features</h3>
 
@@ -1812,7 +1839,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>For <code>git.exe</code> alone, use the same HOME directory fallback mechanism as <code>/etc/profile</code></li>
 </ul>
 
-<h2>Changes since Git-1.9.4-preview20140929</h2>
+</div><h2 id="v1.9.5-preview20141217" nr="94" class="collapsible"> Changes since Git-1.9.4-preview20140929</h2><div>
 
 <h3>New Features</h3>
 
@@ -1826,7 +1853,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Safeguards against bogus file names on NTFS (CVE-2014-9390).</li>
 </ul>
 
-<h2>Changes since Git-1.9.4-preview20140815</h2>
+</div><h2 id="v1.9.4-preview20140929" nr="95" class="collapsible"> Changes since Git-1.9.4-preview20140815</h2><div>
 
 <h3>New Features</h3>
 
@@ -1844,7 +1871,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>git svn</code> is now usable again (regression in previous update, msysgit PR#245)</li>
 </ul>
 
-<h2>Changes since Git-1.9.4-preview20140611</h2>
+</div><h2 id="v1.9.4-preview20140815" nr="96" class="collapsible"> Changes since Git-1.9.4-preview20140611</h2><div>
 
 <h3>New Features</h3>
 
@@ -1868,7 +1895,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>git svn</code> is/might be broken. Fixes welcome.</li>
 </ul>
 
-<h2>Changes since Git-1.9.2-preview20140411</h2>
+</div><h2 id="v1.9.4-preview20140611" nr="97" class="collapsible"> Changes since Git-1.9.2-preview20140411</h2><div>
 
 <h3>New Features</h3>
 
@@ -1884,7 +1911,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Make <code>git-http-backend</code>, <code>git-http-push</code>, <code>git-http-fetch</code> available again (#174)</li>
 </ul>
 
-<h2>Changes since Git-1.9.0-preview20140217</h2>
+</div><h2 id="v1.9.2-preview20140411" nr="98" class="collapsible"> Changes since Git-1.9.0-preview20140217</h2><div>
 
 <h3>New Features</h3>
 
@@ -1907,7 +1934,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fixes a regression in Git-Cheetah which froze the Explorer upon calling Git Bash from the context menu (Git-Cheetah PRs #14 and #15).</li>
 </ul>
 
-<h2>Changes since Git-1.8.5.2-preview20131230</h2>
+</div><h2 id="v1.9.0-preview20140217" nr="99" class="collapsible"> Changes since Git-1.8.5.2-preview20131230</h2><div>
 
 <h3>New Features</h3>
 
@@ -1928,7 +1955,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Perl no longer creates empty <code>sys$command</code> files when no stdin is connected (msysGit pull request #152)</li>
 </ul>
 
-<h2>Changes since Git-1.8.4-preview20130916</h2>
+</div><h2 id="v1.8.5.2-preview20131230" nr="100" class="collapsible"> Changes since Git-1.8.4-preview20130916</h2><div>
 
 <h3>New Features</h3>
 
@@ -1949,7 +1976,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>No longer replaces <code>dos2unix</code> with <code>hd2u</code> (a more powerful, but slightly incompatible version of dos2unix)</li>
 </ul>
 
-<h2>Changes since Git-1.8.3-preview20130601</h2>
+</div><h2 id="v1.8.4-preview20130916" nr="101" class="collapsible"> Changes since Git-1.8.3-preview20130601</h2><div>
 
 <h3>New Features</h3>
 
@@ -1968,7 +1995,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Ensure wincred handles empty username/password.</li>
 </ul>
 
-<h2>Changes since Git-1.8.1.2-preview20130201</h2>
+</div><h2 id="v1.8.3-preview20130601" nr="102" class="collapsible"> Changes since Git-1.8.1.2-preview20130201</h2><div>
 
 <h3>New Features</h3>
 
@@ -1988,7 +2015,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fixed registry-based explorer menu items for XP (#95)</li>
 </ul>
 
-<h2>Changes since Git-1.8.0-preview20121022</h2>
+</div><h2 id="v1.8.1.2-preview20130201" nr="103" class="collapsible"> Changes since Git-1.8.0-preview20121022</h2><div>
 
 <h3>New Features</h3>
 
@@ -2008,7 +2035,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>The installer will attempt to handle files mirrored in the virtualstore.</li>
 </ul>
 
-<h2>Changes since Git-1.7.11-preview20120710</h2>
+</div><h2 id="v1.8.0-preview20121022" nr="104" class="collapsible"> Changes since Git-1.7.11-preview20120710</h2><div>
 
 <h3>New Features</h3>
 
@@ -2025,7 +2052,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fix bash prompt handling due to upstream changes.</li>
 </ul>
 
-<h2>Changes since Git-1.7.11-preview20120704</h2>
+</div><h2 id="v1.7.11-preview20120710" nr="105" class="collapsible"> Changes since Git-1.7.11-preview20120704</h2><div>
 
 <h3>Bugfixes</h3>
 
@@ -2034,7 +2061,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Include CAcert root certificates in SSL bundle (issue #37)</li>
 </ul>
 
-<h2>Changes since Git-1.7.11-preview20120620</h2>
+</div><h2 id="v1.7.11-preview20120704" nr="106" class="collapsible"> Changes since Git-1.7.11-preview20120620</h2><div>
 
 <h3>New Features</h3>
 
@@ -2053,7 +2080,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fixed executable detection to speed up help -a display.</li>
 </ul>
 
-<h2>Changes since Git-1.7.10-preview20120409</h2>
+</div><h2 id="v1.7.11-preview20120620" nr="107" class="collapsible"> Changes since Git-1.7.10-preview20120409</h2><div>
 
 <h3>New Features</h3>
 
@@ -2076,7 +2103,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Various fixes for handling unicode paths.</li>
 </ul>
 
-<h2>Changes since Git-1.7.9-preview20120201</h2>
+</div><h2 id="v1.7.10-preview20120409" nr="108" class="collapsible"> Changes since Git-1.7.9-preview20120201</h2><div>
 
 <h3>New Features</h3>
 
@@ -2097,7 +2124,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Development environment: enhancements to the 64-bit Cheetah build.</li>
 </ul>
 
-<h2>Changes since Git-1.7.8-preview20111206</h2>
+</div><h2 id="v1.7.9-preview20120201" nr="109" class="collapsible"> Changes since Git-1.7.8-preview20111206</h2><div>
 
 <h3>New Features</h3>
 
@@ -2116,7 +2143,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Tabbed gitk preferences dialog to allow use on smaller screens.</li>
 </ul>
 
-<h2>Changes since Git-1.7.7.1-preview20111027</h2>
+</div><h2 id="v1.7.8-preview20111206" nr="110" class="collapsible"> Changes since Git-1.7.7.1-preview20111027</h2><div>
 
 <h3>New Features</h3>
 
@@ -2133,7 +2160,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git documentation submodule location fixed.</li>
 </ul>
 
-<h2>Changes since Git-1.7.7-preview20111014</h2>
+</div><h2 id="v1.7.7.1-preview20111027" nr="111" class="collapsible"> Changes since Git-1.7.7-preview20111014</h2><div>
 
 <h3>New Features</h3>
 
@@ -2148,7 +2175,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Includes an important upstream fix for a bug that sometimes corrupts the git index file.</li>
 </ul>
 
-<h2>Changes since Git-1.7.6-preview20110708</h2>
+</div><h2 id="v1.7.7-preview20111014" nr="112" class="collapsible"> Changes since Git-1.7.6-preview20110708</h2><div>
 
 <h3>New Features</h3>
 
@@ -2169,7 +2196,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fixed warning about mising hostname during <code>git fetch</code></li>
 </ul>
 
-<h2>Changes since Git-1.7.4-preview20110211</h2>
+</div><h2 id="v1.7.6-preview20110708" nr="113" class="collapsible"> Changes since Git-1.7.4-preview20110211</h2><div>
 
 <h3>New Features</h3>
 
@@ -2185,7 +2212,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fixes to msys compat layer for directory entry handling and command line globbing.</li>
 </ul>
 
-<h2>Changes since Git-1.7.3.2-preview20101025</h2>
+</div><h2 id="v1.7.4-preview20110211" nr="114" class="collapsible"> Changes since Git-1.7.3.2-preview20101025</h2><div>
 
 <h3>New Features</h3>
 
@@ -2202,7 +2229,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Please refer to the release notes for official Git 1.7.4</li>
 </ul>
 
-<h2>Changes since Git-1.7.3.1-preview20101002</h2>
+</div><h2 id="v1.7.3.2-preview20101025" nr="115" class="collapsible"> Changes since Git-1.7.3.1-preview20101002</h2><div>
 
 <h3>New Features</h3>
 
@@ -2210,7 +2237,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Comes with Git 1.7.3.2 plus patches.</li>
 </ul>
 
-<h2>Changes since Git-1.7.2.3-preview20100911</h2>
+</div><h2 id="v1.7.3.1-preview20101002" nr="116" class="collapsible"> Changes since Git-1.7.2.3-preview20100911</h2><div>
 
 <h3>New Features</h3>
 
@@ -2228,7 +2255,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Issue 523 (crash pushing to WebDAV remote) was fixed</li>
 </ul>
 
-<h2>Changes since Git-1.7.1-preview20100612</h2>
+</div><h2 id="v1.7.2.3-preview20100911" nr="117" class="collapsible"> Changes since Git-1.7.1-preview20100612</h2><div>
 
 <h3>New Features</h3>
 
@@ -2245,7 +2272,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Issue 501 (failing to clone repo from root dir using relative path) was fixed</li>
 </ul>
 
-<h2>Changes since Git-1.7.0.2-preview20100309</h2>
+</div><h2 id="v1.7.1-preview20100612" nr="118" class="collapsible"> Changes since Git-1.7.0.2-preview20100309</h2><div>
 
 <h3>New Features</h3>
 
@@ -2277,7 +2304,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Issue 441 (Git-1.7.0.2-preview20100309.exe installer fails with unwritable <code>msys-1.0.dll</code> when <code>ssh-agent</code> is running) was fixed</li>
 </ul>
 
-<h2>Changes since Git-1.6.5.1-preview20091022</h2>
+</div><h2 id="v1.7.0.2-preview20100309" nr="119" class="collapsible"> Changes since Git-1.6.5.1-preview20091022</h2><div>
 
 <h3>New Features</h3>
 
@@ -2317,7 +2344,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>.git*</code> files can be associated with the default text editor (issue 397).</li>
 </ul>
 
-<h2>Changes since Git-1.6.4-preview20090729</h2>
+</div><h2 id="v1.6.5.1-preview20091022" nr="120" class="collapsible"> Changes since Git-1.6.4-preview20090729</h2><div>
 
 <h3>New Features</h3>
 
@@ -2337,7 +2364,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Thanks to Sebastian Schuberth, <code>git svn</code> picks up the SSH setting specified with the installer (Issue 305).</li>
 </ul>
 
-<h2>Changes since Git-1.6.3.2-preview20090608</h2>
+</div><h2 id="v1.6.4-preview20090729" nr="121" class="collapsible"> Changes since Git-1.6.3.2-preview20090608</h2><div>
 
 <h3>New Features</h3>
 
@@ -2355,7 +2382,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>IPv6 is supported now, thanks to Martin Martin Storsjö (Issue 182).</li>
 </ul>
 
-<h2>Changes since Git-1.6.3-preview20090507</h2>
+</div><h2 id="v1.6.3.2-preview20090608" nr="122" class="collapsible"> Changes since Git-1.6.3-preview20090507</h2><div>
 
 <h3>New Features</h3>
 
@@ -2378,7 +2405,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>For some Git commands (such as <code>git commit</code>), <code>vi</code> no longer "restores" the cursor position.</li>
 </ul>
 
-<h2>Changes since Git-1.6.2.2-preview20090408</h2>
+</div><h2 id="v1.6.3-preview20090507" nr="123" class="collapsible"> Changes since Git-1.6.2.2-preview20090408</h2><div>
 
 <h3>New Features</h3>
 
@@ -2404,7 +2431,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>git-svn</code> sets <code>core.autocrlf</code> to <code>false</code> now, hopefully shutting up most of the <code>git-svn</code> reports.</li>
 </ul>
 
-<h2>Changes since Git-1.6.2.1-preview20090322</h2>
+</div><h2 id="v1.6.2.2-preview20090408" nr="124" class="collapsible"> Changes since Git-1.6.2.1-preview20090322</h2><div>
 
 <h3>New Features</h3>
 
@@ -2426,7 +2453,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Fall back to <code>/</code> when HOME cannot be set to the real home directory due to locale issues (works around Issue 108 for the moment).</li>
 </ul>
 
-<h2>Changes since Git-1.6.2-preview20090308</h2>
+</div><h2 id="v1.6.2.1-preview20090322" nr="125" class="collapsible"> Changes since Git-1.6.2-preview20090308</h2><div>
 
 <h3>New Features</h3>
 
@@ -2448,7 +2475,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>More vim files are shipped now, so that syntax highlighting works.</li>
 </ul>
 
-<h2>Changes since Git-1.6.1-preview20081225</h2>
+</div><h2 id="v1.6.2-preview20090308" nr="126" class="collapsible"> Changes since Git-1.6.1-preview20081225</h2><div>
 
 <h3>New Features</h3>
 
@@ -2472,7 +2499,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Obsolete programs from previous installations are cleaned up.</li>
 </ul>
 
-<h2>Changes since Git-1.6.0.2-preview20080923</h2>
+</div><h2 id="v1.6.1-preview20081225" nr="127" class="collapsible"> Changes since Git-1.6.0.2-preview20080923</h2><div>
 
 <h3>New Features</h3>
 
@@ -2482,7 +2509,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Installer remembers how to handle PATH. </li>
 </ul>
 
-<h2>Changes since Git-1.6.0.2-preview20080921</h2>
+</div><h2 id="v1.6.0.2-preview20080923" nr="128" class="collapsible"> Changes since Git-1.6.0.2-preview20080921</h2><div>
 
 <h3>Bugfixes</h3>
 
@@ -2492,7 +2519,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Various programs that aborted with <code>Assertion failed: argv0_path</code> are fixed.</li>
 </ul>
 
-<h2>Changes since Git-1.5.6.1-preview20080701</h2>
+</div><h2 id="v1.6.0.2-preview20080921" nr="129" class="collapsible"> Changes since Git-1.5.6.1-preview20080701</h2><div>
 
 <ul>
 <li>Removed Features</li>
@@ -2511,7 +2538,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>No Windows-specific bugfixes.</li>
 </ul>
 
-<h2>Changes since Git-1.5.6-preview20080622</h2>
+</div><h2 id="v1.5.6.1-preview20080701" nr="130" class="collapsible"> Changes since Git-1.5.6-preview20080622</h2><div>
 
 <h3>New Features</h3>
 
@@ -2526,7 +2553,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>cmd wrappers do no longer switch off echo.</li>
 </ul>
 
-<h2>Changes since Git-1.5.5-preview20080413</h2>
+</div><h2 id="v1.5.6-preview20080622" nr="131" class="collapsible"> Changes since Git-1.5.5-preview20080413</h2><div>
 
 <h3>New Features</h3>
 
@@ -2546,7 +2573,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git correctly passes port numbers to PuTTY's Plink </li>
 </ul>
 
-<h2>Changes since Git-1.5.4-preview20080202</h2>
+</div><h2 id="v1.5.5-preview20080413" nr="132" class="collapsible"> Changes since Git-1.5.4-preview20080202</h2><div>
 
 <h3>New Features</h3>
 
@@ -2566,7 +2593,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>All DLLs are rebased to avoid problems with "fork" on Vista.</li>
 </ul>
 
-<h2>Changes since Git-1.5.3.6-preview20071126</h2>
+</div><h2 id="v1.5.4-preview20080202" nr="133" class="collapsible"> Changes since Git-1.5.3.6-preview20071126</h2><div>
 
 <h3>New Features</h3>
 
@@ -2585,7 +2612,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Vim's syntax highlighting is suitable for dark background.</li>
 </ul>
 
-<h2>Changes since Git-1.5.3.5-preview20071114</h2>
+</div><h2 id="v1.5.3.6-preview20071126" nr="134" class="collapsible"> Changes since Git-1.5.3.5-preview20071114</h2><div>
 
 <h3>New Features</h3>
 
@@ -2600,7 +2627,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li><code>pull</code>/<code>fetch</code>/<code>push</code> in <code>git-gui</code> works. Note, there is no way for <code>ssh</code> to ask for a passphrase or for confirmation if you connect to an unknown host. So, you must have ssh set up to work without passphrase. Either you have a key without passphrase, or you started ssh-agent. You may also consider using PuTTY by pointing <code>GIT_SSH</code> to <code>plink.exe</code> and handle your ssh keys with Pageant. In this case you should include your login name in urls. You must also connect to an unknown host once from the command line and confirm the host key, before you can use it from <code>git-gui</code>.</li>
 </ul>
 
-<h2>Changes since Git-1.5.3-preview20071027</h2>
+</div><h2 id="v1.5.3.5-preview20071114" nr="135" class="collapsible"> Changes since Git-1.5.3-preview20071027</h2><div>
 
 <h3>New Features</h3>
 
@@ -2617,7 +2644,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git Bash works on Windows XP 64.</li>
 </ul>
 
-<h2>Changes since Git-1.5.3-preview20071019</h2>
+</div><h2 id="v1.5.3-preview20071027" nr="136" class="collapsible"> Changes since Git-1.5.3-preview20071019</h2><div>
 
 <h3>Bugfixes</h3>
 
@@ -2627,7 +2654,7 @@ href="usr/share/git/ReleaseNotes.css">
 <li>Git Gui localization works. It falls back to English if a translation has errors.</li>
 </ul>
 
-<h2>Changes since WinGit-0.2-alpha</h2>
+</div><h2 id="v1.5.3-preview20071019" nr="137" class="collapsible"> Changes since WinGit-0.2-alpha</h2><div>
 
 <ul>
 <li>The history of the release notes stops here. Various new features and bugfixes are available since WinGit-0.2-alpha. Please check the git history of the msysgit project for details.</li>
@@ -2636,27 +2663,32 @@ href="usr/share/git/ReleaseNotes.css">
 </div>
 <script>
 (() => {
+const hideEl = window.location.hash && window.location.hash != '#latest' ?
+(el) => "#" + el.id !== window.location.hash :
+(el) => el.getAttribute('nr') !== '1';
 for (let el of document.getElementsByClassName('collapsible')) {
 let arrow = document.createElement('div');
-arrow.innerHTML = '⯆';
+arrow.innerHTML = '▽';
 arrow.style.float = 'left';
 arrow.style.position = 'relative';
 arrow.style.left = '-1em';
 arrow.style.top = '+1.5em';
+arrow.style.fontSize = 'larger';
+arrow.style.cursor = 'pointer';
 
 const toggle = () => {
 // this.classList.toggle('active');
 let details = el.nextElementSibling;
 if (details.style.display === 'none') {
 details.style.display = 'block';
-arrow.innerHTML = '⯆';
+arrow.innerHTML = '▽';
 } else {
 details.style.display = 'none';
-arrow.innerHTML = '⯈';
+arrow.innerHTML = '▷';
 }
 };
 
-if (el.getAttribute('nr') !== '1') {
+if (hideEl(el)) {
 toggle();
 }
 
